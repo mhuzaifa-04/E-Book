@@ -1,0 +1,35 @@
+<div [class.dark-theme-wrapper]="themeService.isDarkMode()">
+  <div class="library-container">
+    
+    <header class="library-header">
+      <div class="header-main-row">
+        <h1>My Digital Library</h1>
+        
+        <button class="theme-toggle-btn" (click)="themeService.toggleTheme()">
+          {{ themeService.isDarkMode() ? '☀️ Light Mode' : '🌙 Dark Mode' }}
+        </button>
+      </div>
+      <p>Select a book to start reading from our server backend API</p>
+    </header>
+
+    <div class="book-grid">
+      @for (book of (books$ | async); track book.id) {
+        <div class="book-card" (click)="openBook(book.id)">
+          <div class="cover-wrapper">
+            <img [src]="book.coverImage" [alt]="book.title" onerror="this.src='https://placehold.co/150x220?text=No+Cover'" class="book-cover" alt="">
+          </div>
+          <div class="book-info">
+            <h3>{{ book.title }}</h3>
+            <p class="author">By {{ book.author }}</p>
+            <span class="chapter-count">{{ book.chapters?.length || 0 }} Parts</span>
+          </div>
+        </div>
+      } @empty {
+        <div class="loading-state">
+          <p>Connecting to backend API book repository context service...</p>
+        </div>
+      }
+    </div>
+
+  </div>
+</div>

@@ -1,1 +1,44 @@
 /* You can add global styles to this file, and also import other style files */
+/* ============================================================================
+   GLOBAL DARK MODE MATRIX CONFIGURATION
+   ============================================================================ */
+
+/* 1. Force the body backplane to inherit dark properties */
+body.dark-mode {
+  background-color: #121212 !important;
+  color: #e0e0e0 !important;
+}
+
+/* 2. Fix the stubborn table background and border layouts */
+body.dark-mode table,
+body.dark-mode .table-container {
+  background-color: #1e1e1e !important;
+  color: #ffffff !important;
+  border-color: #333333 !important;
+}
+
+/* 3. Style Table headers inside dark layout mode */
+body.dark-mode th {
+  background-color: #2a2a2a !important;
+  color: #007bff !important;
+  border-bottom: 2px solid #444 !important;
+}
+
+/* 4. Style standard row data cells inside dark layout mode */
+body.dark-mode td {
+  background-color: #1e1e1e !important;
+  color: #dcdcdc !important;
+  border-bottom: 1px solid #333333 !important;
+}
+
+/* 5. Row hover highlighting for better visibility in the dark */
+body.dark-mode tr:hover td {
+  background-color: #2d2d2d !important;
+}
+
+/* 6. Dynamic utility layout class for home container elements */
+.dark-theme-wrapper {
+  background-color: #121212 !important;
+  color: #e0e0e0 !important;
+  min-height: 100vh;
+}

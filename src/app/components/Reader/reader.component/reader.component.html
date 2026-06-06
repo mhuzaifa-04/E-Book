@@ -1,0 +1,95 @@
+<div class="reader-workspace" [class.dark-theme]="themeService.isDarkMode()">
+
+  <header class="reader-toolbar">
+    <button class="btn-icon" (click)="goBackToLibrary()">← Library</button>
+
+    @if (currentBook) {
+      <span class="book-meta-title">
+        {{ currentBook.title }} <small>by {{ currentBook.author }}</small>
+      </span>
+    }
+
+    <div class="toolbar-actions">
+      <button class="btn-text" (click)="changeFontSize(-2)">A-</button>
+      <button class="btn-text" (click)="changeFontSize(2)">A+</button>
+      <button class="theme-toggle-btn" (click)="toggleTheme()">
+        {{ themeService.isDarkMode() ? '☀️ Light' : '🌙 Dark' }}
+      </button>
+    </div>
+  </header>
+
+  <div class="main-layout">
+    @if (currentBook) {
+      <aside class="sidebar-toc">
+        <h3>Table of Contents</h3>
+        <ul>
+          @for (chapter of currentBook.chapters; track chapter.title; let i = $index) {
+            <li
+              [class.active-chapter-link]="i === activeChapterIndex"
+              (click)="selectChapter(i)">
+              {{ chapter.title }}
+            </li>
+          }
+        </ul>
+      </aside>
+    }
+
+    <main class="reading-pane">
+      
+      <div class="split-content-row">
+        
+        <div class="text-content-column">
+          @if (activeChapter) {
+            <article class="content-wrapper">
+              <h2 class="chapter-heading">{{ activeChapter.title }}</h2>
+              <p class="chapter-body-text" [style.font-size.px]="fontSize">
+                {{ activeChapter.content }}
+              </p>
+            </article>
+          } @else {
+            <div class="error-pane">
+              <p>Error loading book data resource. Please return to the library dashboard.</p>
+            </div>
+          }
+        </div>
+
+        <div class="sticky-meta-column">
+          @if (currentBook) {
+            <div class="reader-header-pane">
+              <div class="meta-details">
+                <h1>{{ currentBook.title }}</h1>
+                <p class="author-tag">By {{ currentBook.author }}</p>
+              </div>
+
+              
+            </div>
+          }
+        </div>
+
+        </div> @if (currentBook) {
+        <footer class="chapter-navigation">
+        <div class="download-action-container">
+                <a [href]="currentBook.googleDriveLink"
+                   target="_blank"
+                   rel="noopener noreferrer"
+                   class="btn-download">
+                  <span class="icon">💾</span> Download Full Book File
+                </a>
+         </div>
+        </footer>
+        }
+      
+        @if (activeChapter) {
+        <footer class="chapter-navigation">
+          <!-- <button [disabled]="activeChapterIndex === 0" (click)="selectChapter(activeChapterIndex - 1)">
+            Previous Chapter
+          </button>
+          <button [disabled]="currentBook ? activeChapterIndex === currentBook.chapters.length - 1 : true" (click)="selectChapter(activeChapterIndex + 1)">
+            Next Chapter
+          </button> -->
+        </footer>
+      }
+
+    </main>
+  </div>
+</div>

@@ -1,13 +1,14 @@
-export interface Chapter {
-  id: number;
-  title: string;
-  content: string; // The actual story text for this chapter
-}
-
 export interface Book {
   id: string;
-  title: string;
-  author: string;
-  coverImage: string; // URL or path to the asset image
-  chapters: Chapter[];
+  title: string;          // Book Name
+  author: string;         // Author Name
+  coverImage: string;     // Book Cover Image Path
+  googleDriveLink: string; // 🔗 Google Drive Download Link
+  chapters: Chapter[];    // Parts of the book
+}
+
+export interface Chapter {
+  id: number;
+  title: string;          // Part/Chapter Title
+  content: string;        // Light text reading content
 }
