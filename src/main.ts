@@ -6,7 +6,7 @@ import { App } from './app/app';
 import { provideHttpClient , withInterceptors } from '@angular/common/http';
 import { provideRouter } from '@angular/router';
 import { routes } from './app/app.routes';
-import { authInterceptor } from './app/interceptors/auth.interceptor';
+import { jwtInterceptor } from './app/interceptors/jwt.interceptor';
 
 // bootstrapApplication(App, appConfig)
 //   .catch((err) => console.error(err));
@@ -15,6 +15,6 @@ bootstrapApplication(App, appConfig).then(() => {
   providers: [
     provideRouter(routes),
     // 2. Add this line right here to unleash web request capabilities!
-    provideHttpClient(withInterceptors([authInterceptor]))
+    provideHttpClient(withInterceptors([jwtInterceptor]))
   ]
 }).catch((err) => console.error(err));

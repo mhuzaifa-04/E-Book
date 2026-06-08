@@ -5,20 +5,39 @@
 
     <form (ngSubmit)="onSubmit()" #loginForm="ngForm">
       <div class="form-group">
-        <label for="username">Username</label>
-        <input type="text" id="username" name="username" [(ngModel)]="credentials.username" required placeholder="Enter admin" />
+        <label for="email">Email Address</label>
+        <div class="input-wrapper">
+          <span class="input-icon">✉️</span>
+          <input type="email" id="email" name="email" [(ngModel)]="credentials.email" required placeholder="name@example.com" />
+        </div>
       </div>
 
       <div class="form-group">
         <label for="password">Password</label>
-        <input type="password" id="password" name="password" [(ngModel)]="credentials.password" required placeholder="Enter password123" />
-      </div>
+        <div class="input-wrapper">
+          <span class="input-icon">🔒</span>
+          <input
+            [type]="showPassword ? 'text' : 'password'"
+            id="password"
+            name="password"
+            [(ngModel)]="credentials.passwordHash"
+            required
+            placeholder="••••••••" />
+
+          <button type="button" class="password-toggle-eye" (click)="togglePasswordVisibility()">
+            {{ showPassword ? '👁️‍عون' : '👁️' }}
+          </button>
+        </div> </div>
 
       @if (errorMessage) {
-        <div class="error-banner">{{ errorMessage }}</div>
+        <div class="error-banner">⚠️ {{ errorMessage }}</div>
       }
 
       <button type="submit" [disabled]="!loginForm.form.valid" class="btn-login">Unlock System</button>
     </form>
+
+    <p class="auth-switch-text">
+      New reader? <a routerLink="/register">Create an account here</a>
+    </p>
   </div>
 </div>

@@ -2,23 +2,73 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
-  background-color: #f4f6f9;
+  padding: 2rem 1rem;
+  min-height: calc(100vh - 160px);
 }
 .login-card {
-  background: white;
+  background-color: var(--bg-primary, #ffffff);
+  border: 1px solid var(--border-card, #e2e8f0);
   padding: 40px;
   border-radius: 12px;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+  box-shadow: var(--card-shadow, 0 4px 15px rgba(0,0,0,0.08));
   width: 100%;
   max-width: 400px;
+  box-sizing: border-box;
 }
-h2 { margin-bottom: 6px; color: #333; text-align: center; }
-.subtitle { color: #777; font-size: 14px; text-align: center; margin-bottom: 25px; }
-.form-group { margin-bottom: 18px; }
-label { display: block; margin-bottom: 6px; font-weight: 600; color: #444; }
-input { width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 6px; box-sizing: border-box; }
-.btn-login { width: 100%; padding: 12px; background-color: #007bff; color: white; border: none; border-radius: 6px; font-weight: bold; cursor: pointer; transition: background 0.2s; }
-.btn-login:hover { background-color: #0056b3; }
-.btn-login:disabled { background-color: #ccc; cursor: not-allowed; }
-.error-banner { background-color: #ffeef0; color: #dc3545; padding: 10px; border-radius: 6px; margin-bottom: 15px; font-size: 14px; text-align: center; border: 1px solid #fecdd3; }
+h2 { margin: 0 0 6px 0; color: var(--text-main, #333); text-align: center; }
+.subtitle { color: var(--text-muted, #777); font-size: 14px; text-align: center; margin-bottom: 25px; margin-top: 0; }
+.form-group { margin-bottom: 18px; text-align: left; }
+label { display: block; margin-bottom: 6px; font-weight: 600; color: var(--text-main, #444); font-size: 0.9rem; }
+input { 
+  width: 100%; 
+  padding: 11px; 
+  border: 1.5px solid var(--border-color, #ddd); 
+  border-radius: 6px; 
+  box-sizing: border-box; 
+  background-color: var(--bg-primary, #ffffff);
+  color: var(--text-main, #000000);
+}
+input:focus {
+  outline: none;
+  border-color: var(--accent-color, #007bff);
+}
+.btn-login { width: 100%; padding: 12px; background-color: var(--accent-color, #007bff); color: white; border: none; border-radius: 6px; font-weight: bold; cursor: pointer; transition: background 0.2s; margin-top: 5px; }
+.btn-login:hover { filter: brightness(0.9); }
+.btn-login:disabled { background-color: #ccc !important; cursor: not-allowed; color: #666; }
+.error-banner { background-color: #fef2f2; color: #b91c1c; padding: 10px; border-radius: 6px; margin-bottom: 15px; font-size: 14px; text-align: center; border: 1px solid #fca5a5; }
+.auth-switch-text { text-align: center; margin-top: 1.5rem; margin-bottom: 0; font-size: 0.9rem; color: var(--text-muted, #666); }
+.auth-switch-text a { color: var(--accent-color, #007bff); text-decoration: none; font-weight: 600; }
+
+/* ============================================================================
+   👁️ PASSWORD SHOW/HIDE FLOATING EYE TRIGGER BUTTON
+   ============================================================================ */
+.password-toggle-eye {
+  position: absolute;
+  right: 12px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 1.1rem;
+  padding: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+  user-select: none;
+  opacity: 0.7;
+  transition: opacity 0.2s, transform 0.1s;
+}
+
+.password-toggle-eye:hover {
+  opacity: 1;
+  transform: scale(1.08);
+}
+
+.password-toggle-eye:active {
+  transform: scale(0.95);
+}
+
+/* Ensure long text doesn't flow underneath the floating eye icon */
+.input-wrapper input {
+  padding-right: 42px !important;
+}

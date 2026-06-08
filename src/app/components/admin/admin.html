@@ -1,0 +1,107 @@
+<div class="admin-wrapper">
+
+  <div class="admin-card">
+
+    <div class="admin-header">
+      <h2>{{ isEditingMode ? '✏️ Modify Book Metadata' : '📁 Management Dashboard' }}</h2>
+      <p>{{ isEditingMode ? 'Update your digital publication metadata and save modifications back to your server nodes.' : 'Fill out the fields below to push a new digital publication into your live catalog.' }}</p>
+    </div>
+
+    @if (successMessage()) {
+      <div class="alert alert-success">
+        {{ successMessage() }}
+      </div>
+    }
+    @if (errorMessage()) {
+      <div class="alert alert-danger">
+        ⚠️ {{ errorMessage() }}
+      </div>
+    }
+
+    <form (ngSubmit)="onSaveBook()">
+      <div class="admin-form-group">
+        <label>Book Title</label>
+        <input type="text" name="title" [(ngModel)]="title" placeholder="e.g., Khutbat e Faqeer" class="admin-input" required>
+      </div>
+
+      <div class="admin-form-group">
+        <label>Author / Writer Name</label>
+        <input type="text" name="author" [(ngModel)]="author" placeholder="e.g., Hazrat Peer Zulfiqar Ahmad" class="admin-input" required>
+      </div>
+
+      <div class="admin-form-group">
+        <label>Cover Asset Path Location</label>
+        <input type="text" name="coverImage" [(ngModel)]="coverImage" placeholder="e.g., assets/khutbat-e-faqeer.webp" class="admin-input" required>
+      </div>
+
+      <div class="admin-form-group">
+        <label>Google Drive Stream URL Link</label>
+        <input type="url" name="googleDriveLink" [(ngModel)]="googleDriveLink" placeholder="https://drive.google.com/file/d/..." class="admin-input" required alt="Google Drive Link">
+      </div>
+
+      <div class="admin-action-row" style="display: flex; gap: 10px; flex-wrap: wrap;">
+        <button type="button" (click)="goToLibrary()" class="btn-secondary-back">⬅️ View Library</button>
+
+        <button type="submit" class="btn-primary-push">
+          {{ isEditingMode ? '💾 Save Modifications' : '➕ Push to Repository' }}
+        </button>
+
+        @if (isEditingMode) {
+          <button type="button" (click)="resetForm()" class="btn-secondary-back" style="background: #ef4444; color: white; border: none;">Cancel Edit</button>
+        }
+      </div>
+    </form>
+
+  </div>
+
+  <div class="admin-card" style="margin-top: 2rem; max-width: 100%; overflow: hidden;">
+    <div class="admin-header" style="margin-bottom: 1.5rem;">
+      <h3>📚 Active Library Holdings Catalog</h3>
+      <p style="font-size: 0.88rem; opacity: 0.8;">Manage your indexed listings. You can edit information details inline or drop row entries permanently.</p>
+    </div>
+
+    <div style="overflow-x: auto; width: 100%;">
+      <table style="width: 100%; border-collapse: collapse; text-align: left; font-size: 0.95rem;">
+        <thead>
+          <tr style="border-bottom: 2px solid var(--card-border, #444); opacity: 0.9;">
+            <th style="padding: 12px; font-weight: 700;">Cover</th>
+            <th style="padding: 12px; font-weight: 700;">Metadata Details</th>
+            <th style="padding: 12px; font-weight: 700;">Drive Streaming Link</th>
+            <th style="padding: 12px; font-weight: 700; text-align: center;">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (book of books(); track book.id || book.Id) {
+            <tr style="border-bottom: 1px solid var(--card-border, rgba(255,255,255,0.1)); transition: background-color 0.2s;">
+              <td style="padding: 12px;">
+                <img [src]="book.coverImage || book.CoverImage" alt="Cover" style="width: 42px; height: 56px; object-fit: cover; border-radius: 4px; box-shadow: 0 2px 5px rgba(0,0,0,0.2);" />
+              </td>
+              <td style="padding: 12px; max-width: 200px;">
+                <div style="font-weight: 700; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">{{ book.title || book.Title }}</div>
+                <div style="font-size: 0.82rem; opacity: 0.7; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">By {{ book.author || book.Author }}</div>
+              </td>
+              <td style="padding: 12px;">
+                <div style="max-width: 180px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 0.82rem; opacity: 0.6;">
+                  {{ book.googleDriveLink || book.GoogleDriveLink }}
+                </div>
+              </td>
+              <td style="padding: 12px; text-align: center;">
+                <div style="display: flex; gap: 8px; justify-content: center;">
+                  <button type="button" (click)="onTriggerEditMode(book)" style="background: #eab308; color: #000; border: none; padding: 6px 12px; border-radius: 4px; font-weight: bold; cursor: pointer; font-size: 0.85rem;">✏️ Edit</button>
+                  <button type="button" (click)="onDeleteBook(book.id || book.Id)" style="background: #ef4444; color: #fff; border: none; padding: 6px 12px; border-radius: 4px; font-weight: bold; cursor: pointer; font-size: 0.85rem;">🗑️ Drop</button>
+                </div>
+              </td>
+            </tr>
+          } @empty {
+            <tr>
+              <td colspan="4" style="padding: 24px; text-align: center; opacity: 0.6; font-style: italic;">
+                No active publications indexed in your database infrastructure grids.
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+</div>

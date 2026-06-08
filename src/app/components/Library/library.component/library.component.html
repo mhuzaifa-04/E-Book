@@ -1,53 +1,78 @@
-<div [class.dark-theme-wrapper]="themeService.isDarkMode()">
+<div [class.dark-theme-wrapper]="themeService.isDarkMode()" [class.rtl-mode]="languageService.currentLang() === 'ur'">
   <div class="library-container">
+
+    <div class="top-utility-row">
+      <button class="lang-toggle-btn" (click)="languageService.toggleLanguage()">
+        {{ languageService.currentLang() === 'en' ? 'اردو (Urdu) 🌐' : 'English 🌐' }}
+      </button>
+    </div>
 
     <header class="library-header">
       <div class="header-main-row">
-        <h1>My Digital Library</h1>
+        <h1>{{ languageService.translate('title') }}</h1>
         <button class="theme-toggle-btn" (click)="themeService.toggleTheme()">
-          {{ themeService.isDarkMode() ? '☀️ Light Mode' : '🌙 Dark Mode' }}
+          {{ themeService.isDarkMode() ? '☀️ Light' : '🌙 Dark' }}
         </button>
       </div>
-      <p>Click any book cover below to instantly download the PDF from our repository</p>
+      <p class="header-subtitle">{{ languageService.translate('subtitle') }}</p>
     </header>
 
-    @if (books$ | async; as booksList) {
-      <div class="book-grid">
+    <div class="controls-toolbar">
+      <div class="search-box-wrapper">
+        <input
+          type="text"
+          [placeholder]="languageService.translate('searchPlaceholder')"
+          [ngModel]="searchQuery()"
+          (ngModelChange)="searchQuery.set($event)"
+          class="search-input">
+      </div>
 
-        @for (book of booksList; track book.id) {
+      <div class="filter-dropdown-wrapper">
+        <select
+          [ngModel]="selectedAuthor()"
+          (ngModelChange)="selectedAuthor.set($event)"
+          class="author-select">
+          @for (author of authorsList(); track author) {
+            <option [value]="author">
+              {{ author === 'All' ? languageService.translate('allAuthors') : author }}
+            </option>
+          }
+        </select>
+      </div>
+    </div>
+
+    @if (books$ | async) {
+      <div class="book-grid">
+        @for (book of filteredBooks(); track book.id) {
           <a [href]="book.googleDriveLink" target="_blank" rel="noopener noreferrer" class="book-card-link">
             <div class="book-card">
 
               <div class="cover-wrapper">
-                <img [src]="book.coverImage"
+                <img [src]="formatAssetPath( book.coverImage)"
                      [alt]="book.title"
                      onerror="this.src='https://placehold.co/150x220?text=No+Cover'"
                      class="book-cover">
               </div>
 
               <div class="book-info">
-                <h3>{{ book.title }}</h3>
-                <p class="author">By {{ book.author }}</p>
-
+                <h3 class="book-title-text">{{ book.title }}</h3>
+                <p class="author-text">{{ book.author }}</p>
                 <div class="download-action-badge">
-                  💾 Download PDF
+                  {{ languageService.translate('downloadBtn') }}
                 </div>
               </div>
 
             </div>
           </a>
         } @empty {
-          <div class="loading-state">
-            <p>No books are available in the repository list configuration right now.</p>
+          <div class="empty-results-state">
+            <p>ℹ️ {{ languageService.translate('noBooks') }}</p>
           </div>
         }
-
       </div>
     } @else {
-      <div class="book-grid">
-        <div class="loading-state">
-          <p>Connecting to backend API book repository service...</p>
-        </div>
+      <div class="loading-state-container">
+        <p>⏳ {{ languageService.translate('loading') }}</p>
       </div>
     }
 

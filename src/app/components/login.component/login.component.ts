@@ -1,29 +1,38 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router'; // 🟢 Added RouterLink for registration link redirects
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [CommonModule, FormsModule],
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+  imports: [CommonModule, FormsModule, RouterLink], // 🟢 Ensures template can parse routerLink
+  templateUrl: './login.component.html',             // 🟢 Aligned file name path target
+  styleUrls: ['./login.component.css']               // 🟢 Aligned stylesheet path target
 })
 export class LoginComponent {
-  credentials = { username: '', password: '' };
+  private authService = inject(AuthService);
+  private router = inject(Router);
+
+  credentials = { email: '', passwordHash: '' };
   errorMessage = '';
 
-  constructor(private authService: AuthService, private router: Router) {}
+  // 🟢 Password visibility toggle variable tracking
+  showPassword = false;
+
+  togglePasswordVisibility() {
+    this.showPassword = !this.showPassword;
+  }
 
   onSubmit() {
+    this.errorMessage = '';
     this.authService.login(this.credentials).subscribe({
       next: () => {
-        this.router.navigate(['/']); // Redirect to your library dashboard on success!
+        this.router.navigate(['/']);
       },
       error: (err) => {
-        this.errorMessage = 'Invalid username or password credentials.';
+        this.errorMessage = err.error?.message || 'Invalid email or password credentials.';
       }
     });
   }

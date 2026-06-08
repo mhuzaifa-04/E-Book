@@ -1,0 +1,29 @@
+<nav class="navbar" [class.rtl-mode]="languageService.currentLang() === 'ur'">
+  <div class="nav-container">
+    <a routerLink="/" class="nav-logo">
+      📚 <span>{{ languageService.translate('title') }}</span>
+    </a>
+    
+    <div class="nav-links">
+      <a routerLink="/" routerLinkActive="active-link" [routerLinkActiveOptions]="{exact: true}">
+        {{ languageService.translate('navHome') }}
+      </a>
+      <a routerLink="/about" routerLinkActive="active-link">
+        {{ languageService.translate('navAbout') }}
+      </a>
+
+      @if (authService.isLoggedIn() && authService.isAdmin()) {
+        <a routerLink="/admin" routerLinkActive="active-link" class="admin-badge-link">
+          ⚙️ Admin Panel
+        </a>
+      }
+
+      @if (authService.isLoggedIn()) {
+        <span class="user-welcome">👤 {{ authService.currentUser() }}</span>
+        <button (click)="authService.logout()" class="nav-logout-btn">Logout 🚪</button>
+      } @else {
+        <a routerLink="/login" routerLinkActive="active-link" class="nav-login-link">Login 🔑</a>
+      }
+    </div>
+  </div>
+</nav>

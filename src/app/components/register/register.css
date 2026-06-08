@@ -1,0 +1,220 @@
+/* ============================================================================
+   1. REGISTRATION DESIGN SYSTEM PROPERTIES (ADAPTS IN REAL-TIME)
+   ============================================================================ */
+:host {
+  --reg-bg: #f8fafc;
+  --card-bg: #ffffff;
+  --card-border: #e2e8f0;
+  --text-primary: #0f172a;
+  --text-secondary: #64748b;
+  --input-border: #cbd5e1;
+  --input-bg: #ffffff;
+  --btn-gradient: linear-gradient(135deg, #2563eb, #1d4ed8);
+}
+
+/* 🌙 AUTOMATIC DARK THEME GRID INTEGRATION */
+:host-context(.dark-theme-wrapper) {
+  --reg-bg: #121212;         /* 🟢 Slipped exactly to match your homepage backdrop */
+  --card-bg: #1e1e1e;        /* Clean card separation offset elevation */
+  --card-border: #2d2d2d;
+  --text-primary: #ffffff;
+  --text-secondary: #a1a1aa;
+  --input-border: #3f3f46;
+  --input-bg: #27272a;
+  --btn-gradient: linear-gradient(135deg, #3b82f6, #2563eb);
+}
+
+/* ============================================================================
+   2. CARD VIEWPORT CONTROLS
+   ============================================================================ */
+.register-page-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: calc(100vh - 120px);
+  background-color: var(--reg-bg);
+  padding: 2.5rem 1rem;
+  box-sizing: border-box;
+  transition: background-color 0.2s ease;
+}
+
+.register-card {
+  background-color: var(--card-bg);
+  border: 1px solid var(--card-border);
+  padding: 2.5rem;
+  border-radius: 16px;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.05);
+  width: 100%;
+  max-width: 440px;
+  box-sizing: border-box;
+  transition: all 0.2s ease;
+}
+
+/* Header Text Rules */
+.register-header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+.brand-badge {
+  font-size: 2.5rem;
+  margin-bottom: 0.5rem;
+}
+.register-header h2 {
+  margin: 0 0 0.5rem 0;
+  color: var(--text-primary);
+  font-weight: 800;
+  font-size: 1.75rem;
+}
+.subtitle {
+  color: var(--text-secondary);
+  font-size: 0.95rem;
+  margin: 0;
+  line-height: 1.4;
+}
+
+/* ============================================================================
+   3. MODERN FORM FIELDS LAYOUT
+   ============================================================================ */
+.form-group {
+  margin-bottom: 1.5rem;
+  text-align: left;
+}
+.form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  font-size: 0.88rem;
+}
+
+/* Input Icon Group Wrapper */
+.input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+.input-icon {
+  position: absolute;
+  left: 14px;
+  font-size: 1rem;
+  opacity: 0.8;
+  color: var(--text-secondary);
+}
+.input-wrapper input {
+  width: 100%;
+  padding: 12px 12px 12px 42px; /* Leaves room on the left for icons */
+  border: 1.5px solid var(--input-border);
+  border-radius: 8px;
+  box-sizing: border-box;
+  background-color: var(--input-bg);
+  color: var(--text-primary);
+  font-size: 0.95rem;
+  transition: all 0.2s ease;
+}
+.input-wrapper input:focus {
+  outline: none;
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.15);
+}
+
+/* Action Push Button */
+.btn-register {
+  width: 100%;
+  padding: 13px;
+  background: var(--btn-gradient);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform 0.1s ease, filter 0.2s ease;
+  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.2);
+  margin-top: 0.5rem;
+}
+.btn-register:hover {
+  filter: brightness(1.05);
+}
+.btn-register:active {
+  transform: scale(0.98);
+}
+.btn-register:disabled {
+  background: #cbd5e1 !important;
+  color: #94a3b8 !important;
+  cursor: not-allowed;
+  box-shadow: none;
+  transform: none;
+}
+
+/* ============================================================================
+   4. COMPONENT STATUS NOTIFICATIONS & FOOTER
+   ============================================================================ */
+.error-banner {
+  background-color: #fef2f2;
+  color: #b91c1c;
+  padding: 12px;
+  border-radius: 8px;
+  margin-bottom: 1.5rem;
+  font-size: 0.9rem;
+  border: 1px solid #fca5a5;
+  text-align: left;
+}
+.success-banner {
+  background-color: #f0fdf4;
+  color: #166534;
+  padding: 12px;
+  border-radius: 8px;
+  margin-bottom: 1.5rem;
+  font-size: 0.9rem;
+  border: 1px solid #bbf7d0;
+  text-align: left;
+}
+
+.auth-switch-text {
+  text-align: center;
+  margin-top: 2rem;
+  margin-bottom: 0;
+  font-size: 0.92rem;
+  color: var(--text-secondary);
+}
+.auth-switch-text a {
+  color: #3b82f6;
+  text-decoration: none;
+  font-weight: 600;
+}
+.auth-switch-text a:hover {
+  text-decoration: underline;
+}
+/* ============================================================================
+   👁️ PASSWORD SHOW/HIDE FLOATING EYE TRIGGER BUTTON
+   ============================================================================ */
+.password-toggle-eye {
+  position: absolute;
+  right: 12px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 1.1rem;
+  padding: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+  user-select: none;
+  opacity: 0.7;
+  transition: opacity 0.2s, transform 0.1s;
+}
+
+.password-toggle-eye:hover {
+  opacity: 1;
+  transform: scale(1.08);
+}
+
+.password-toggle-eye:active {
+  transform: scale(0.95);
+}
+
+/* Ensure long text doesn't flow underneath the floating eye icon */
+.input-wrapper input {
+  padding-right: 42px !important;
+}
