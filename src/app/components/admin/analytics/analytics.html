@@ -1,0 +1,85 @@
+<div [class.dark-theme-wrapper]="themeService.isDarkMode()" [class.rtl-mode]="languageService.currentLang() === 'ur'">
+  <div class="analytics-wrapper">
+
+    <!-- Header Operations Bar -->
+    <div class="analytics-card header-card">
+      <div class="analytics-header">
+        <h2>📊 System Analytics & Diagnostics</h2>
+        <p>Real-time telemetry diagnostics from your active backend runtime environments and local storage configurations.</p>
+      </div>
+      <div class="header-actions">
+        <button class="btn-refresh" (click)="fetchDiagnostics()" [disabled]="isLoading()">
+          {{ isLoading() ? 'Updating...' : '🔄 Refresh Metrics' }}
+        </button>
+        <button class="btn-secondary-back" (click)="backToHub()">↩️ Control Hub</button>
+      </div>
+    </div>
+
+    @if (isLoading()) {
+      <div class="loading-container">
+        <div class="spinner"></div>
+        <p>Querying runtime telemetry pipelines...</p>
+      </div>
+    } @else if (errorMessage()) {
+      <div class="alert alert-danger">⚠️ {{ errorMessage() }}</div>
+    } @else {
+
+      <!-- Live Metrics Dashboard Panel Grid Layout -->
+      <div class="diagnostics-grid">
+
+        <!-- Metric Card 1: Health State -->
+        <div class="metric-tile">
+          <span class="tile-icon icon-status">🟢</span>
+          <div class="tile-body">
+            <h5>Server Status</h5>
+            <h4>{{ diagnosticData()?.status }}</h4>
+            <p>Environment API node is responding normally.</p>
+          </div>
+        </div>
+
+        <!-- Metric Card 2: Local Database Metrics -->
+        <div class="metric-tile">
+          <span class="tile-icon icon-db">📂</span>
+          <div class="tile-body">
+            <h5>Storage Repository</h5>
+            <h4>{{ diagnosticData()?.databaseSizeKb }} KB</h4>
+            <p>{{ diagnosticData()?.recordCount }} active publications indexed inside books.json.</p>
+          </div>
+        </div>
+
+        <!-- Metric Card 3: Memory Diagnostic Heap Tracker -->
+        <div class="metric-tile">
+          <span class="tile-icon icon-ram">⚡</span>
+          <div class="tile-body">
+            <h5>Allocated Heap Memory</h5>
+            <h4>{{ diagnosticData()?.runtimeMemoryMb }} MB</h4>
+            <p>Active heap footprint managed by .NET Garbage Collector.</p>
+          </div>
+        </div>
+
+        <!-- Metric Card 4: Hardware Footprint Allocation -->
+        <div class="metric-tile">
+          <span class="tile-icon icon-process">💻</span>
+          <div class="tile-body">
+            <h5>Process Working Set</h5>
+            <h4>{{ diagnosticData()?.processMemoryMb }} MB</h4>
+            <p>Total physical memory occupied by the OS hosting process.</p>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Environment Structural Details Meta Table Card -->
+      <div class="analytics-card system-info-card">
+        <h3>💻 Host Environment Specifications</h3>
+        <ul class="spec-list">
+          <li><strong>Operating System Platform:</strong> {{ diagnosticData()?.osPlatform }}</li>
+          <li><strong>Runtime Architecture Framework:</strong> {{ diagnosticData()?.dotNetVersion }}</li>
+          <li><strong>Telemetry Last Logged Timestamp:</strong> {{ diagnosticData()?.timestamp }}</li>
+        </ul>
+      </div>
+
+    }
+
+  </div>
+</div>

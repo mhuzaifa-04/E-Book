@@ -1,169 +1,138 @@
-.reader-workspace {
-  --bg-primary: #ffffff;
-  --bg-secondary: #f8f9fa;
-  --text-main: #2c3e50;
-  --text-muted: #7f8c8d;
-  --border-color: #e2e8f0;
-  --accent-color: #3498db;
-  --accent-light: #ebf5fb;
-
-  display: flex;
-  flex-direction: column;
-  height: 100vh;
-  background-color: var(--bg-primary);
-  color: var(--text-main);
-  font-family: Georgia, serif; /* Serifs offer better long-form reading comfort */
-  transition: background-color 0.3s ease, color 0.3s ease;
+.reader-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem 1.5rem;
+  box-sizing: border-box;
 }
 
-/* Inversion layer rule override values triggered by toggle state variable */
-.reader-workspace.dark-theme {
-  --bg-primary: #121212;
-  --bg-secondary: #1e1e1e;
-  --text-main: #e0e0e0;
-  --text-muted: #a0a0a0;
-  --border-color: #2d2d2d;
-  --accent-color: #2980b9;
-  --accent-light: #1a252f;
+.navigation-row {
+  margin-bottom: 1.5rem;
 }
 
-.reader-toolbar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0.75rem 1.5rem;
-  background-color: var(--bg-secondary);
-  border-bottom: 1px solid var(--border-color);
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+.back-link-btn {
+  color: var(--accent-color, #2563eb);
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 1rem;
+  transition: opacity 0.15s ease;
+}
+.back-link-btn:hover {
+  opacity: 0.8;
 }
 
-.book-meta-title {
-  font-weight: 600;
-}
-.book-meta-title small {
-  font-weight: 400;
-  color: var(--text-muted);
-  margin-left: 0.5rem;
+/* Profile Showcase Styles */
+.author-profile-header {
+  text-align: center;
+  padding: 1.5rem 0;
 }
 
-.main-layout {
-  display: flex;
-  flex: 1;
-  overflow: hidden; /* Isolates internal scrolling panels */
+.avatar-fallback {
+  font-size: 3rem;
+  margin-bottom: 0.5rem;
 }
 
-.sidebar-toc {
-  width: 260px;
-  background-color: var(--bg-secondary);
-  border-right: 1px solid var(--border-color);
-  padding: 1.5rem 1rem;
-  overflow-y: auto;
-  font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+.profile-title {
+  font-size: 2.2rem;
+  font-weight: 800;
+  color: var(--text-main, #0f172a);
+  margin: 0 0 0.25rem 0;
 }
 
-.sidebar-toc h3 {
-  font-size: 0.9rem;
-  text-transform: uppercase;
-  color: var(--text-muted);
-  letter-spacing: 1px;
-  margin-bottom: 1rem;
-}
-
-.sidebar-toc ul {
-  list-style: none;
-  padding: 0;
+.profile-meta {
+  color: var(--text-muted, #64748b);
+  font-size: 1rem;
   margin: 0;
 }
 
-.sidebar-toc li {
-  padding: 0.75rem 0.5rem;
-  border-radius: 4px;
-  cursor: pointer;
-  margin-bottom: 0.25rem;
-  font-size: 0.95rem;
-  color: var(--text-main);
+.section-divider {
+  height: 2px;
+  background-color: var(--border-color, #cbd5e1);
+  margin: 1.5rem 0 2.5rem 0;
 }
 
-.sidebar-toc li:hover {
-  background-color: var(--border-color);
-}
-
-.sidebar-toc li.active-chapter-link {
-  background-color: var(--accent-light);
-  color: var(--accent-color);
-  font-weight: bold;
-}
-
-.reading-pane {
-  flex: 1;
-  overflow-y: auto;
-  padding: 3rem 2rem;
-  display: flex;
-  justify-content: center;
-}
-
-.content-wrapper {
-  max-width: 700px; /* Optimal column reading width for the human eye */
+/* 🟢 WIREFRAME GRID REPLICATION: Same as your chosen layout */
+.book-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 2.5rem;
   width: 100%;
 }
 
-.chapter-heading {
-  font-size: 2rem;
-  margin-bottom: 2rem;
-  border-bottom: 1px dashed var(--border-color);
-  padding-bottom: 1rem;
-}
-
-.chapter-body-text {
-  line-height: 1.8; /* Generous vertical tracking room for eye fatigue prevention */
-  text-align: justify;
-  margin-bottom: 3rem;
-  white-space: pre-line; /* Respects manual return spacing formats */
-}
-
-.chapter-navigation {
-  display: flex;
-  justify-content: space-between;
-  padding-top: 2rem;
-  border-top: 1px solid var(--border-color);
-}
-
-/* Base Form Buttons styling rules */
-button {
-  padding: 0.5rem 1rem;
+.book-card {
+  background-color: var(--bg-primary, #ffffff);
+  border: 2px solid #000000; /* High-contrast layout borders */
   border-radius: 4px;
-  border: 1px solid var(--border-color);
-  background: var(--bg-primary);
-  color: var(--text-main);
-  cursor: pointer;
-}
-button:disabled {
-  opacity: 0.4;
-  cursor: not-allowed;
-}
-button:not(:disabled):hover {
-  background-color: var(--border-color);
-}
-.btn-download {
-  display: inline-flex;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
   align-items: center;
-  gap: 8px;
-  background-color: #24a0ed; /* Clean blue action color */
+  justify-content: space-between;
+  min-height: 420px;
+  box-sizing: border-box;
+  transition: transform 0.2s ease;
+}
+
+.book-card:hover {
+  transform: translateY(-4px);
+}
+
+.cover-wrapper {
+  width: 100%;
+  height: 240px;
+  border: 2px solid #000000;
+  padding: 8px;
+  background-color: var(--bg-secondary, #f8fafc);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-sizing: border-box;
+}
+
+.book-cover {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain; /* Keeps full crisp text aspect tracking lines intact */
+  display: block;
+}
+
+.book-info {
+  width: 100%;
+  text-align: center;
+  margin: 1.5rem 0 1rem 0;
+}
+
+.book-title-display {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--text-main, #0f172a);
+  margin: 0;
+  line-height: 1.4;
+}
+
+.download-action-badge {
+  width: 90%;
+  background-color: #0091ff; /* Matching wireframe styling blue link button button */
   color: #ffffff;
-  padding: 10px 20px;
-  border-radius: 6px;
+  padding: 0.65rem 1.2rem;
+  border: 2px solid #000000;
+  border-radius: 25px; /* Pill layout framework matching image sketch design */
+  font-size: 0.95rem;
+  font-weight: 700;
+  text-align: center;
+  cursor: pointer;
   text-decoration: none;
-  font-weight: 600;
-  transition: background-color 0.2s ease, transform 0.1s ease;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  display: inline-block;
+  box-sizing: border-box;
 }
 
-.btn-download:hover {
-  background-color: #118ad3;
-  transform: translateY(-1px);
+.download-action-badge:hover {
+  background-color: #0077d6;
 }
 
-.btn-download:active {
-  transform: translateY(0);
+.no-books-card-state {
+  text-align: center;
+  padding: 3rem;
+  border: 2px dashed var(--border-color, #cbd5e1);
+  border-radius: 8px;
+  color: var(--text-muted, #64748b);
 }
-

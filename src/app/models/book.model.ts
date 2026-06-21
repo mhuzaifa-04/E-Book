@@ -10,5 +10,6 @@ export interface Book {
   author: string;
   coverImage: string;
   googleDriveLink: string;
+  sequenceOrder?: number;
   chapters: Chapter[];
 }

@@ -1,33 +1,82 @@
-<div class="about-container">
-  <div class="profile-card">
-    <div class="image-wrapper">
-      <img src="assets/mentor.jpg" alt="Beloved Mentor Profile" onerror="this.src='https://placehold.co/300x400?text=In+Loving+Memory'">
-    </div>
+<div class="about-premium-container">
+  <div class="tribute-layout-grid">
 
-    <div class="profile-details">
-      <span class="tribute-badge">In Loving Memory</span>
-      <h1>Our Beloved Mentor & Guide</h1>
-      <p class="subtitle">Whose light, wisdom, and tireless dedication continue to guide our paths.</p>
+    <div class="biography-content-panel">
+      <div class="section-meta-tag-row">
+        <span class="tribute-badge-pill">✨ Living Legacy</span>
+        <span class="charity-badge-pill">Sadqah Jariyah</span>
+      </div>
 
-      <hr class="divider" />
+      <h1 class="tribute-main-title">
+        Our Beloved Mentor <br />
+        <span class="highlight-title-accent">& Spiritual Guide</span>
+      </h1>
 
-      <div class="biography-text">
-        <h3>His Legacy & Teachings</h3>
+      <p class="tribute-subtitle-text">
+        Whose light, timeless wisdom, and tireless dedication continue to illuminate our path toward character and sacred knowledge.
+      </p>
+
+      <div class="decorative-separator-bar"></div>
+
+      <div class="narrative-body-text">
+        <h3 class="narrative-section-heading">A Leading Shaykh of Tasawwuf in the Modern Era</h3>
         <p>
-          [Insert your mentor's name] spent his life spreading knowledge, nurturing minds, and cultivating character.
-          This digital platform was built as a dedicated repository for the literature he loved, taught, and recommended,
-          serving as a beacon of guidance for all seeking seekers of truth.
+          Shaykh Zulfiqar Ahmad Naqshbandi (born 1 April 1953) is one of the leading mashaekh of Tasawwuf in the present era. Formally granted authorization (Ijazah-o-Khilafat) in the Naqshbandi spiritual path (Silsila), he retired from his position as General Manager (Planning and Development) at the age of forty to devote himself entirely to the service of Islam. He has travelled to more than sixty countries transforming the lives of people all over the world. A testament to his deep love for Allah, his uncompromising dedication to Sunnah of the blessed Prophet (PBUH), and his firm adherence to Islamic Law (shariah) is that thousands of religious scholars and students of Islamic learning are among his students (murids). Furthermore, he has written dozens of books and over 200 books have been produced from his lectures, many of which have been translated into several languages.
         </p>
 
-        <blockquote>
-          "The best of people are those who are most beneficial to people."
-        </blockquote>
+        <div class="premium-quote-card">
+          <span class="quote-giant-mark">“</span>
+          <p class="quote-internal-text">
+            The best of people are those who are most beneficial to people.
+          </p>
+        </div>
 
-        <p>
-          May this platform serve as a source of continuous charity (Sadqah Jariyah) reaching his scales, and may his
-          teachings remain alive within our daily actions.
+        <p class="narrative-footer-text">
+          May this platform serve as a source of continuous charity reaching his scales, and may his deep teachings remain vibrantly alive within our daily actions and character.
         </p>
       </div>
     </div>
+
+    <div class="gallery-showcase-panel">
+      <div class="shadow-backing-frame"></div>
+
+      <div class="premium-carousel-viewport">
+        <div class="carousel-image-strip" [style.transform]="'translateX(-' + (currentSlideIndex() * 100) + '%)'">
+
+          @for (imgSrc of carouselImages; track $index) {
+            <div class="carousel-slide-item">
+              <img
+                [src]="imgSrc"
+                alt="Beloved Mentor Hazrat Maulana Peer Zulfiqar Ahmad Naqshbandi DB"
+                class="carousel-canvas-img"
+                loading="lazy"
+                onerror="this.src='https://placehold.co/400x530?text=In+Loving+Memory'" />
+
+
+            </div>
+          }
+
+        </div>
+
+        <button class="nav-control-padd prev-padd" (click)="prevSlide()" aria-label="Previous Slide">❮</button>
+        <button class="nav-control-padd next-padd" (click)="nextSlide()" aria-label="Next Slide">❯</button>
+
+        <div class="floating-pills-indicator-row">
+          @for (dot of carouselImages; track $index) {
+            <button
+              class="pill-dot"
+              [class.pill-active]="$index === currentSlideIndex()"
+              (click)="setSlide($index)">
+            </button>
+          }
+        </div>
+
+      </div>
+        <div class="external-mentor-title-zone">
+    <h3 class="mentor-primary-signature">Mahbubul Ulama wa Suluha Hazrat Hafiz Peer Zulfiqar Ahmad Naqshbandi Mujaddidi (R.A)</h3>
+  </div>
+
+    </div>
+
   </div>
 </div>

@@ -1,12 +1,14 @@
 <div [class.dark-theme-wrapper]="themeService.isDarkMode()" [class.rtl-mode]="languageService.currentLang() === 'ur'">
   <div class="library-container">
 
+    <!-- Language Toggle Row -->
     <div class="top-utility-row">
       <button class="lang-toggle-btn" (click)="languageService.toggleLanguage()">
         {{ languageService.currentLang() === 'en' ? 'اردو (Urdu) 🌐' : 'English 🌐' }}
       </button>
     </div>
 
+    <!-- Title Header -->
     <header class="library-header">
       <div class="header-main-row">
         <h1>{{ languageService.translate('title') }}</h1>
@@ -17,62 +19,90 @@
       <p class="header-subtitle">{{ languageService.translate('subtitle') }}</p>
     </header>
 
-    <div class="controls-toolbar">
-      <div class="search-box-wrapper">
-        <input
-          type="text"
-          [placeholder]="languageService.translate('searchPlaceholder')"
-          [ngModel]="searchQuery()"
-          (ngModelChange)="searchQuery.set($event)"
-          class="search-input">
-      </div>
-
-      <div class="filter-dropdown-wrapper">
-        <select
-          [ngModel]="selectedAuthor()"
-          (ngModelChange)="selectedAuthor.set($event)"
-          class="author-select">
-          @for (author of authorsList(); track author) {
-            <option [value]="author">
-              {{ author === 'All' ? languageService.translate('allAuthors') : author }}
-            </option>
-          }
-        </select>
-      </div>
+    <!-- View Mode Switcher Toolbar Buttons -->
+    <div class="view-switcher-tabs">
+      <button [class.active]="currentView === 'books'" (click)="currentView = 'books'">📚 Browse Books</button>
+      <button [class.active]="currentView === 'authors'" (click)="currentView = 'authors'">✍️ Browse Authors</button>
     </div>
 
-    @if (books$ | async) {
-      <div class="book-grid">
-        @for (book of filteredBooks(); track book.id) {
-          <a [href]="book.googleDriveLink" target="_blank" rel="noopener noreferrer" class="book-card-link">
-            <div class="book-card">
+    <!-- 🟢 SECTION A: ALL BOOKS VIEW (Only displays when 'books' tab is selected) -->
+    @if (currentView === 'books') {
 
-              <div class="cover-wrapper">
-                <img [src]="formatAssetPath( book.coverImage)"
-                     [alt]="book.title"
-                     onerror="this.src='https://placehold.co/150x220?text=No+Cover'"
-                     class="book-cover">
-              </div>
+      <!-- Search Toolbars -->
+      <div class="controls-toolbar">
+        <div class="search-box-wrapper">
+          <input
+            type="text"
+            [placeholder]="languageService.translate('searchPlaceholder')"
+            [ngModel]="searchQuery()"
+            (ngModelChange)="searchQuery.set($event)"
+            class="search-input">
+        </div>
 
-              <div class="book-info">
-                <h3 class="book-title-text">{{ book.title }}</h3>
-                <p class="author-text">{{ book.author }}</p>
-                <div class="download-action-badge">
-                  {{ languageService.translate('downloadBtn') }}
-                </div>
-              </div>
-
-            </div>
-          </a>
-        } @empty {
-          <div class="empty-results-state">
-            <p>ℹ️ {{ languageService.translate('noBooks') }}</p>
-          </div>
-        }
+        <div class="filter-dropdown-wrapper">
+          <select
+            [ngModel]="selectedAuthor()"
+            (ngModelChange)="selectedAuthor.set($event)"
+            class="author-select">
+            @for (author of authorsList(); track author) {
+              <option [value]="author">
+                {{ author === 'All' ? languageService.translate('allAuthors') : author }}
+              </option>
+            }
+          </select>
+        </div>
       </div>
-    } @else {
-      <div class="loading-state-container">
-        <p>⏳ {{ languageService.translate('loading') }}</p>
+
+      <!-- Main Book Grid -->
+      @if (books().length > 0 || searchQuery() || selectedAuthor() !== 'All') {
+        <div class="book-grid">
+          @for (book of filteredBooks(); track book.id || book.id || $index) {
+            <div class="book-card">
+              <div class="cover-wrapper">
+<img
+          [src]="getOptimizedCover(book.coverImage || book.coverImage)"
+          alt="Book Cover"
+          class="book-cover"
+          loading="lazy" /> <!-- Adds native browser background loading optimization -->              </div>
+              <div class="book-info">
+                <h3 class="book-title-text">
+          {{ book.title || book.title || 'Untitled Document' }}
+        </h3>
+                <p class="author-text">{{ book.author || book.author || 'Unknown Author' }}</p>
+              </div>
+              @if (book.googleDriveLink || book.googleDriveLink) {
+                <a [href]="book.googleDriveLink || book.googleDriveLink" target="_blank" rel="noopener noreferrer" class="download-action-badge">
+                  📥 Download
+                </a>
+              }
+            </div>
+          } @empty {
+            <div class="empty-results-state">
+              <p>ℹ️ {{ languageService.translate('noBooks') }}</p>
+            </div>
+          }
+        </div>
+      } @else {
+        <div class="loading-state-container">
+          <p>⏳ {{ languageService.translate('loading') }}</p>
+        </div>
+      }
+
+    }
+
+    <!-- 🟢 SECTION B: AUTHOR DIRECTORY FOLDERS (Only displays when 'authors' tab is selected) -->
+    @if (currentView === 'authors') {
+      <div class="author-grid" style="margin-top: 1rem;">
+        @for (authorName of getUniqueAuthors(); track authorName) {
+
+          <!-- ⚠️ FIXED: Strictly uses (click) with NO [routerLink] attributes left behind to break routing -->
+          <div class="author-folder-card" (click)="openAuthorFolder(authorName)" style="cursor: pointer;">
+            <div class="folder-icon-wrapper">📁</div>
+            <h3 class="author-folder-title">{{ authorName }}</h3>
+            <p class="author-folder-count">View Collection →</p>
+          </div>
+
+        }
       </div>
     }
 

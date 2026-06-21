@@ -1,0 +1,59 @@
+<div [class.dark-theme-wrapper]="themeService.isDarkMode()" [class.rtl-mode]="languageService.currentLang() === 'ur'">
+  <div class="admin-wrapper">
+    <div class="admin-card">
+
+      <div class="admin-header">
+        <h2>📁 Add New Publication</h2>
+        <p>Fill out metadata fields and upload custom graphics to host publication profiles live across storage layers.</p>
+      </div>
+
+      @if (successMessage()) { <div class="alert alert-success">✅ {{ successMessage() }}</div> }
+      @if (errorMessage()) { <div class="alert alert-danger">⚠️ {{ errorMessage() }}</div> }
+
+      <form (ngSubmit)="onSaveBook()">
+
+        <div class="admin-form-group">
+          <label>Book Title</label>
+          <input type="text" name="title" [(ngModel)]="title" placeholder="e.g., Khutbat e Faqeer" class="admin-input" required [disabled]="isSubmitting()">
+        </div>
+
+        <div class="admin-form-group">
+          <label>Author / Writer Name</label>
+          <input type="text" name="author" [(ngModel)]="author" placeholder="e.g., Hazrat Peer Zulfiqar Ahmad" class="admin-input" required [disabled]="isSubmitting()">
+        </div>
+
+      
+
+        <div class="admin-form-group">
+          <label>Cover Graphics Asset File Upload</label>
+          <div class="file-upload-zone">
+            <input type="file" id="coverFileInput" accept="image/*" (change)="onFileSelected($event)" class="hidden-file-input" required [disabled]="isSubmitting()">
+            <label for="coverFileInput" class="file-custom-label">📂 Choose Cover Image File</label>
+
+            @if (coverPreviewUrl()) {
+              <div class="preview-thumbnail-wrapper">
+                <img [src]="coverPreviewUrl()" alt="Live Thumbnail Preview" class="upload-preview-render" />
+                <span class="file-name-tag">Selected: {{ selectedFile?.name }}</span>
+              </div>
+            }
+          </div>
+        </div>
+
+        <div class="admin-form-group">
+          <label>Google Drive Stream URL Link</label>
+          <input type="url" name="googleDriveLink" [(ngModel)]="googleDriveLink" placeholder="https://drive.google.com/file/d/..." class="admin-input" required [disabled]="isSubmitting()">
+        </div>
+
+        <div class="admin-action-row">
+          <button type="button" (click)="backToHub()" class="btn-secondary-back" [disabled]="isSubmitting()">
+            ↩️ Control Hub
+          </button>
+          <button type="submit" class="btn-primary-push" [disabled]="isSubmitting()">
+            {{ isSubmitting() ? 'Uploading & Saving Assets...' : '➕ Host & Deploy Publication' }}
+          </button>
+        </div>
+
+      </form>
+    </div>
+  </div>
+</div>

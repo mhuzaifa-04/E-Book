@@ -1,9 +1,38 @@
-<div [class.dark-theme-wrapper]="themeService.isDarkMode()">
-  <app-navbar></app-navbar>
+<app-navbar></app-navbar>
+<!-- <div class="app-layout-wrapper"
+[class.dark-theme-wrapper]="themeService.isDarkMode()"
+[class.sidebar-collapsed]="isSidebarCollapsed">
 
-  <main style="min-height: calc(100vh - 140px);">
+  <aside class="library-sidebar">
+    <div class="sidebar-header">
+      <button class="sidebar-toggle-btn" (click)="toggleSidebar()" aria-label="Toggle Navigation Sidebar">
+        ☰
+      </button>
+      <span class="sidebar-brand-text">🗂️ Categories</span>
+    </div>
+
+    <nav class="sidebar-nav">
+      @for (cat of categories(); track cat.id) {
+        <div class="sidebar-folder-item" (click)="selectCategory(cat.id, cat.name)">
+          <span class="folder-icon">📁</span>
+          <span class="folder-name-text">{{ cat.name }}</span>
+        </div>
+      } @empty {
+        <div class="sidebar-empty-state-hint">
+          <span class="folder-icon">⚠️</span>
+          <span class="folder-name-text">No genres found</span>
+        </div>
+      }
+    </nav>
+
+    <div class="sidebar-footer">
+      <span class="folder-icon">⚙️</span>
+      <span class="folder-name-text">v2.0 Stable Build</span>
+    </div>
+  </aside> -->
+
+  <main class="main-content-viewport">
     <router-outlet></router-outlet>
   </main>
-
-  <app-footer></app-footer>
-</div>
+<!-- </div> -->
+<app-footer></app-footer>

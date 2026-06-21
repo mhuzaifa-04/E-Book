@@ -8,8 +8,7 @@ import { Observable, tap } from 'rxjs';
   providedIn: 'root'
 })
 export class AuthService {
-  // 🟢 Aligned with your local C# API port and endpoints
-private apiUrl = 'http://localhost:5091/api/auth';
+  private apiUrl = 'http://localhost:5091/api/auth';
   private platformId = inject(PLATFORM_ID);
   private http = inject(HttpClient);
   private router = inject(Router);
@@ -19,7 +18,14 @@ private apiUrl = 'http://localhost:5091/api/auth';
   currentUserRole = signal<string | null>(this.getStoredItem('role'));
 
   register(user: any) : Observable<any> {
-    return this.http.post(`${this.apiUrl}/register`, user);
+    return this.http.post(`${this.apiUrl}/register`, user).pipe(
+      tap(() => {
+        if (isPlatformBrowser(this.platformId)) {
+          // 🌟 ADDED: If registration is successful, flag them as a returning user right away
+          localStorage.setItem('is_returning_user', 'true');
+        }
+      })
+    );
   }
 
   login(credentials: { email: string; passwordHash: string }) {
@@ -29,6 +35,9 @@ private apiUrl = 'http://localhost:5091/api/auth';
           localStorage.setItem('auth_token', response.token);
           localStorage.setItem('username', response.username);
           localStorage.setItem('role', response.role);
+
+          // 🌟 ADDED: Flag this device permanently so they bypass the anonymous visitor restriction wall
+          localStorage.setItem('is_returning_user', 'true');
 
           this.isLoggedIn.set(true);
           this.currentUser.set(response.username);
@@ -43,7 +52,11 @@ private apiUrl = 'http://localhost:5091/api/auth';
 
   logout() {
     if (isPlatformBrowser(this.platformId)) {
-      localStorage.clear();
+      // 🌟 OPTIMIZED: Use removeItem instead of clear()
+      // This prevents wiping out 'is_returning_user' so they aren't forced to register again after logging out!
+      localStorage.removeItem('auth_token');
+      localStorage.removeItem('username');
+      localStorage.removeItem('role');
     }
     this.isLoggedIn.set(false);
     this.currentUser.set(null);

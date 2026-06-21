@@ -1,35 +1,50 @@
 import { Injectable, inject } from '@angular/core';
 import { Router } from '@angular/router';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from "rxjs";
+
+export interface GlobalStats {
+  totalVisits: number;
+  uniqueVisitors: number;
+}
 
 @Injectable({
   providedIn: 'root'
 })
 export class VisitTrackerService {
   private router = inject(Router);
+  private http = inject(HttpClient);
+
+  // 🟢 Updated to match your actual working backend server port
+  private apiUrl = 'http://localhost:5091/api/analytics';
 
   trackVisit() {
-    // 1. If the user is already logged in, skip tracking entirely
-    if (localStorage.getItem('token')) {
+    // 🌟 FIX: If they have a token OR have ever logged in on this machine before, skip the registration wall!
+    if (localStorage.getItem('auth_token') || localStorage.getItem('is_returning_user') === 'true') {
       return;
     }
 
-    // 2. Retrieve existing visit count, or start at 0
     let visits = parseInt(localStorage.getItem('site_visits') || '0', 10);
-    
-    // 3. Increment the count on a new session load
+    let isBrandNewUser = false;
+
+    if (!localStorage.getItem('site_visits')) {
+      isBrandNewUser = true;
+    }
+
     if (!sessionStorage.getItem('session_active')) {
       visits += 1;
       localStorage.setItem('site_visits', visits.toString());
-      sessionStorage.setItem('session_active', 'true'); // Prevents increments on simple page refreshes
+      sessionStorage.setItem('session_active', 'true');
+
+      this.http.post(`${this.apiUrl}/track`, { isUniqueUser: isBrandNewUser }).subscribe();
     }
 
-    // 4. If they have visited more than 4 times, lock them out!
-    if (visits > 4) {
+    if (visits > 1) {
       this.router.navigate(['/register']);
     }
   }
 
-  getVisitCount(): number {
-    return parseInt(localStorage.getItem('site_visits') || '0', 10);
+  getGlobalServerStats(): Observable<GlobalStats> {
+    return this.http.get<GlobalStats>(`${this.apiUrl}/stats`);
   }
 }

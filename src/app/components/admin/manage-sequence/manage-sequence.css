@@ -1,0 +1,124 @@
+.sequence-container {
+  padding: 30px;
+  display: flex;
+  justify-content: center;
+}
+
+.sequence-card {
+  width: 100%;
+  max-width: 650px;
+  background: var(--admin-card-bg, #ffffff);
+  border: 1px solid var(--admin-border, #e5e7eb);
+  padding: 24px;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+}
+
+.sequence-header h2 {
+  margin: 0 0 6px 0;
+  color: var(--admin-text, #1f2937);
+}
+
+.sequence-header p {
+  margin: 0 0 20px 0;
+  color: #6b7280;
+  font-size: 0.9rem;
+}
+
+/* 🟢 CDK Drag Drop Animations & Layout rules */
+.drag-list-group {
+  border: 1px solid var(--admin-border, #e5e7eb);
+  border-radius: 8px;
+  overflow: hidden;
+  background: var(--admin-bg, #f9fafb);
+  margin-bottom: 20px;
+}
+
+.drag-item {
+  display: flex;
+  align-items: center;
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--admin-border, #e5e7eb);
+  background: var(--admin-card-bg, #ffffff);
+  color: var(--admin-text, #1f2937);
+  gap: 16px;
+  transition: background-color 0.2s ease;
+}
+
+.drag-item:last-child {
+  border-bottom: none;
+}
+
+/* While holding item, give it a beautiful shadow preview floating effect */
+.cdk-drag-preview {
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15) !important;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  background: white;
+  padding: 12px 16px;
+  gap: 16px;
+}
+
+/* Smooth placeholder animation while dragging over different slots */
+.cdk-drag-placeholder {
+  opacity: 0.3;
+  background: #2563eb !important;
+}
+
+.drag-handle {
+  cursor: grab;
+  color: #9ca3af;
+  font-size: 1.2rem;
+  user-select: none;
+}
+.drag-handle:active {
+  cursor: grabbing;
+}
+
+.mini-cover-preview {
+  width: 36px;
+  height: 48px;
+  object-fit: cover;
+  border-radius: 4px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+.book-details {
+  display: flex;
+  flex-direction: column;
+}
+
+.book-title {
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+
+.book-author {
+  font-size: 0.82rem;
+  color: #6b7280;
+}
+
+.action-row {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 15px;
+}
+
+.btn-back, .btn-save {
+  padding: 10px 20px;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  border: none;
+}
+
+.btn-back {
+  background: #e5e7eb;
+  color: #374151;
+}
+
+.btn-save {
+  background: #2563eb;
+  color: white;
+}

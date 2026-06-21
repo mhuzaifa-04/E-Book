@@ -1,0 +1,37 @@
+<div class="admin-analytics-container">
+  <div class="dashboard-header-row">
+    <h2>Website Analytics Dashboard</h2>
+    <button class="btn-refresh" (click)="refreshAnalytics()">🔄 Refresh Stats</button>
+  </div>
+
+  @if (isLoading()) {
+    <div class="analytics-spinner">Querying server database metrics...</div>
+  } @else if (globalStats()) {
+    <div class="metrics-grid-row">
+
+      <div class="metric-card-box total-views">
+        <div class="card-icon-frame">👁️</div>
+        <div class="card-data-info">
+          <h3>Total Page Hits</h3>
+          <p class="metric-number-display">{{ globalStats()?.totalVisits | number }}</p>
+        </div>
+      </div>
+
+      <div class="metric-card-box unique-visitors">
+        <div class="card-icon-frame">👥</div>
+        <div class="card-data-info">
+          <h3>Unique Visitors</h3>
+          <p class="metric-number-display">{{ globalStats()?.uniqueVisitors | number }}</p>
+        </div>
+      </div>
+
+    </div>
+  } @else {
+    <div class="analytics-error-banner">Could not connect to backend analytics repository service.</div>
+  }
+
+  <div class="admin-action-row">
+          <button type="button" (click)="backToHub()" class="btn-secondary-back" [disabled]="isSubmitting()">
+            ↩️ Control Hub
+          </button>
+</div>

@@ -1,0 +1,183 @@
+/* ============================================================================
+   🗂️ GEMINI-STYLE COLLAPSIBLE INTERACTIVE SIDEBAR THEME-AWARE RULES
+   ============================================================================ */
+.app-layout-wrapper {
+  display: flex;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+}
+
+/* 🏢 MAIN DYNAMIC SIDEBAR STRUCTURE */
+.library-sidebar {
+  width: 260px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  overflow: hidden;
+  user-select: none;
+  flex-shrink: 0;
+
+  /* ☀️ DEFAULT LIGHT THEME STYLING CONFIGURATION */
+  background-color: #f8fafc;
+  color: #0f172a;
+  border-right: 2px solid #e2e8f0;
+}
+
+/* 🌙 DARK THEME CONDITIONAL STYLE ADJUSTMENT OVERRIDES */
+.dark-theme-wrapper .library-sidebar {
+  background-color: #18181b;
+  color: #ffffff;
+  border-right: 2px solid #27272a;
+}
+
+/* 🌟 SIDEBAR INTERACTIVE CLICK ACTIONS TOGGLE STATE */
+.sidebar-collapsed .library-sidebar {
+  width: 68px;
+}
+
+/* 👥 SIDEBAR LAYER HEADER SETTINGS */
+.sidebar-header {
+  display: flex;
+  align-items: center;
+  padding: 1.2rem;
+  gap: 1.1rem;
+  border-bottom: 1px solid #e2e8f0;
+  white-space: nowrap;
+}
+.dark-theme-wrapper .sidebar-header {
+  border-bottom: 1px solid #27272a;
+}
+
+/* ☰ HAMBURGER BUTTON TOGGLER SPECIFICATIONS */
+.sidebar-toggle-btn {
+  background: none;
+  border: none;
+  color: #0091ff;
+  font-size: 1.4rem;
+  font-weight: 700;
+  cursor: pointer;
+  padding: 4px 8px;
+  border-radius: 6px;
+  transition: background-color 0.2s ease;
+}
+.sidebar-toggle-btn:hover {
+  background-color: #e2e8f0;
+}
+.dark-theme-wrapper .sidebar-toggle-btn:hover {
+  background-color: #27272a;
+}
+
+.sidebar-brand-text {
+  font-size: 1.1rem;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+}
+
+/* 📁 CATEGORY NAVIGATION DIRECTORY LIST CONTAINER */
+.sidebar-nav {
+  flex: 1;
+  padding: 1.2rem 0.6rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  overflow-y: auto;
+}
+
+/* Single Category Row Elements */
+.sidebar-folder-item {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.75rem 1rem;
+  border-radius: 6px;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background-color 0.15s linear;
+}
+.sidebar-folder-item:hover {
+  background-color: #e2e8f0;
+}
+.dark-theme-wrapper .sidebar-folder-item:hover {
+  background-color: #27272a;
+}
+
+.folder-icon {
+  font-size: 1.25rem;
+  display: inline-block;
+  text-align: center;
+  width: 24px;
+}
+
+.folder-name-text {
+  font-size: 0.95rem;
+  font-weight: 600;
+}
+
+/* 🙈 TRANSITION HOOKS */
+.sidebar-collapsed .folder-name-text,
+.sidebar-collapsed .sidebar-brand-text {
+  opacity: 0;
+  display: none;
+}
+
+/* ⚙️ SYSTEM FOOTER AREA */
+.sidebar-footer {
+  padding: 1rem;
+  border-top: 1px solid #e2e8f0;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  white-space: nowrap;
+  font-size: 0.8rem;
+  color: #64748b;
+}
+.dark-theme-wrapper .sidebar-footer {
+  border-top: 1px solid #27272a;
+  color: #71717a;
+}
+
+/* 💻 COMPONENT DASHBOARD VIEWPORT BLOCK */
+.main-content-viewport {
+  flex: 1;
+  height: 100%;
+  overflow-y: auto;
+  transition: all 0.25s ease;
+  background-color: #ffffff;
+}
+.dark-theme-wrapper .main-content-viewport {
+  background-color: #09090b;
+}
+
+/* ============================================================================
+   🎯 PURE GLOBAL ANCESTRY THEME ENGINE (No Navbar Service Injection Needed)
+   ============================================================================ */
+
+/* ☀️ A. UNIVERSAL LIGHT THEME ROOT VARIABLES */
+.navbar {
+  --nav-bg: #ffffff;
+  --nav-border: #e2e8f0;
+  --nav-logo-color: #1e293b;
+  --nav-text: #64748b;
+  --nav-accent: #2563eb;
+  --nav-logout-bg: #fef2f2;
+  --nav-logout-border: #fca5a5;
+  --nav-logout-text: #b91c1c;
+  --nav-login-bg: #2563eb;
+  --nav-login-text: #ffffff;
+}
+
+/* 🌙 B. DYNAMIC DARK THEME VARIABLE OVERRIDES */
+.dark-theme-wrapper .navbar {
+  --nav-bg: #1e1e24;         /* Premium elevated charcoal gray surface */
+  --nav-border: #3f3f46;     /* Clear crisp separating row line */
+  --nav-logo-color: #ffffff;
+  --nav-text: #cbd5e1;
+  --nav-accent: #3b82f6;
+  --nav-logout-bg: #27272a;
+  --nav-logout-border: #3f3f46;
+  --nav-logout-text: #ef4444;
+  --nav-login-bg: #3b82f6;
+  --nav-login-text: #121212;
+}

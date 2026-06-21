@@ -1,44 +1,195 @@
-/* You can add global styles to this file, and also import other style files */
 /* ============================================================================
-   GLOBAL DARK MODE MATRIX CONFIGURATION
+   📦 GLOBAL COMPONENT CARD & NAV CONTAINER CATCH-ALLS (DARK MODE)
    ============================================================================ */
-
-/* 1. Force the body backplane to inherit dark properties */
-body.dark-mode {
-  background-color: #121212 !important;
-  color: #e0e0e0 !important;
+body.dark-mode .card,
+body.dark-mode .panel,
+body.dark-mode .dashboard-box,
+.dark-theme-wrapper .card,
+.dark-theme-wrapper .panel,
+.dark-theme-wrapper .dashboard-box {
+  background-color: #1e1e24 !important;
+  border-color: #2d2d34 !important;
+  color: #e2e8f0 !important;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3) !important;
 }
 
-/* 2. Fix the stubborn table background and border layouts */
-body.dark-mode table,
-body.dark-mode .table-container {
-  background-color: #1e1e1e !important;
+/* 🧭 Top Navigation Bars & Header Headers */
+body.dark-mode header,
+body.dark-mode .navbar,
+body.dark-mode .top-nav,
+.dark-theme-wrapper header,
+.dark-theme-wrapper .navbar,
+.dark-theme-wrapper .top-nav {
+  background-color: #16161a !important;
+  border-bottom: 1px solid #2d2d34 !important;
   color: #ffffff !important;
-  border-color: #333333 !important;
 }
 
-/* 3. Style Table headers inside dark layout mode */
-body.dark-mode th {
-  background-color: #2a2a2a !important;
-  color: #007bff !important;
-  border-bottom: 2px solid #444 !important;
+/* 🔘 Secondary UI Buttons / Neutral Action Triggers */
+body.dark-mode .btn-secondary,
+body.dark-mode .btn-outline,
+.dark-theme-wrapper .btn-secondary,
+.dark-theme-wrapper .btn-outline {
+  background-color: #27272a !important;
+  color: #ffffff !important;
+  border: 1px solid #3f3f46 !important;
+}
+body.dark-mode .btn-secondary:hover,
+.dark-theme-wrapper .btn-secondary:hover {
+  background-color: #3f3f46 !important;
 }
 
-/* 4. Style standard row data cells inside dark layout mode */
-body.dark-mode td {
-  background-color: #1e1e1e !important;
-  color: #dcdcdc !important;
-  border-bottom: 1px solid #333333 !important;
+/* 🚨 Dialog Modals & Floating Overlay Popups */
+body.dark-mode .modal-content,
+body.dark-mode .dialog-box,
+.dark-theme-wrapper .modal-content,
+.dark-theme-wrapper .dialog-box {
+  background-color: #121214 !important;
+  border: 1px solid #3f3f46 !important;
+  color: #ffffff !important;
 }
 
-/* 5. Row hover highlighting for better visibility in the dark */
-body.dark-mode tr:hover td {
-  background-color: #2d2d2d !important;
+
+/* ============================================================================
+   🏛️ GLOBAL APPLICATION BASE & SMOOTH TRANSITIONS
+   ============================================================================ */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
-/* 6. Dynamic utility layout class for home container elements */
+body {
+  font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  background-color: #ffffff;
+  color: #0f172a;
+}
+
+/* ============================================================================
+   🎛️ THEME UNIFICATION ENGINE (body.dark-mode & .dark-theme-wrapper)
+   ============================================================================ */
+body.dark-mode,
 .dark-theme-wrapper {
-  background-color: #121212 !important;
-  color: #e0e0e0 !important;
+  background-color: #121214 !important;
+  color: #e2e8f0 !important;
+}
+
+/* Force links and nav items to stay readable in dark mode */
+body.dark-mode a,
+.dark-theme-wrapper a {
+  color: #38bdf8;
+}
+
+body.dark-mode h1, body.dark-mode h2, body.dark-mode h3, body.dark-mode h4,
+.dark-theme-wrapper h1, .dark-theme-wrapper h2, .dark-theme-wrapper h3, .dark-theme-wrapper h4 {
+  color: #ffffff !important;
+}
+
+/* ============================================================================
+   📊 STUBBORN MATRIX DATA TABLES (DARK MODE OVERRIDES)
+   ============================================================================ */
+body.dark-mode table,
+body.dark-mode .table-container,
+.dark-theme-wrapper table,
+.dark-theme-wrapper .table-container {
+  background-color: #1e1e24 !important;
+  color: #ffffff !important;
+  border-color: #2d2d34 !important;
+}
+
+body.dark-mode th,
+.dark-theme-wrapper th {
+  background-color: #16161a !important;
+  color: #0091ff !important;
+  border-bottom: 2px solid #2d2d34 !important;
+}
+
+body.dark-mode td,
+.dark-theme-wrapper td {
+  background-color: #1e1e24 !important;
+  color: #cbd5e1 !important;
+  border-bottom: 1px solid #2d2d34 !important;
+}
+
+body.dark-mode tr:hover td,
+.dark-theme-wrapper tr:hover td {
+  background-color: #25252e !important;
+}
+
+/* ============================================================================
+   📝 INTERACTIVE INPUTS, CARDS, & COVERS (DARK MODE OVERRIDES)
+   ============================================================================ */
+body.dark-mode input, body.dark-mode select, body.dark-mode textarea,
+.dark-theme-wrapper input, .dark-theme-wrapper select, .dark-theme-wrapper textarea {
+  background-color: #16161a !important;
+  border: 1px solid #3f3f46 !important;
+  color: #ffffff !important;
+}
+
+body.dark-mode input:focus, body.dark-mode select:focus,
+.dark-theme-wrapper input:focus, .dark-theme-wrapper select:focus {
+  border-color: #0091ff !important;
+  box-shadow: 0 0 0 2px rgba(0, 145, 255, 0.2) !important;
+}
+
+/* ============================================================================
+   🧱 CORE STRUCTURAL RESPONSIVE PLATFORM LAYOUT
+   ============================================================================ */
+.main-app-layout {
+  display: flex;
+  flex-direction: column; /* 📱 Default vertical stack on mobile viewports */
   min-height: 100vh;
+}
+
+/* 💻 Responsive side-by-side split configuration for tablet & desktop environments */
+@media (min-width: 992px) {
+  .main-app-layout {
+    flex-direction: row;
+  }
+
+  .sidebar-container {
+    width: 280px;
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    z-index: 100;
+  }
+
+  .content-body-workspace {
+    flex: 1;
+    padding: 2.5rem;
+  }
+}
+
+/* 📱 Fluid workspace downscaling for smart devices */
+@media (max-width: 991px) {
+  .content-body-workspace {
+    padding: 1.25rem;
+    width: 100%;
+    overflow-x: hidden;
+  }
+}
+
+/* ============================================================================
+   ✨ GLOBAL SCROLLBAR ARCHITECTURE
+   ============================================================================ */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+body.dark-mode ::-webkit-scrollbar-thumb,
+.dark-theme-wrapper ::-webkit-scrollbar-thumb {
+  background: #27272a;
+  border-radius: 4px;
+}
+
+body.dark-mode ::-webkit-scrollbar-thumb:hover,
+.dark-theme-wrapper ::-webkit-scrollbar-thumb:hover {
+  background: #3f3f46;
 }

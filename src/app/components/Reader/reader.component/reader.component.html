@@ -1,95 +1,48 @@
-<div class="reader-workspace" [class.dark-theme]="themeService.isDarkMode()">
+<div [class.dark-theme-wrapper]="themeService.isDarkMode()" [class.rtl-mode]="languageService.currentLang() === 'ur'">
+  <div class="reader-container">
 
-  <header class="reader-toolbar">
-    <button class="btn-icon" (click)="goBackToLibrary()">← Library</button>
+    <div class="navigation-row" style="margin-bottom: 1.5rem;">
+  <!-- 🟢 Ensure it points to absolute '/library' using routerLink -->
+  <a routerLink="/" class="back-link-btn" style="text-decoration: none; font-weight: bold; color: #0091ff;">
+    ← Back to Directory
+  </a>
+</div>
 
-    @if (currentBook) {
-      <span class="book-meta-title">
-        {{ currentBook.title }} <small>by {{ currentBook.author }}</small>
-      </span>
-    }
+    <header class="author-profile-header">
+      <div class="avatar-fallback">✍️</div>
+      <h1 class="profile-title">{{ authorName() }}</h1>
+      <p class="profile-meta">Displaying all published documents and catalog entries</p>
+    </header>
 
-    <div class="toolbar-actions">
-      <button class="btn-text" (click)="changeFontSize(-2)">A-</button>
-      <button class="btn-text" (click)="changeFontSize(2)">A+</button>
-      <button class="theme-toggle-btn" (click)="toggleTheme()">
-        {{ themeService.isDarkMode() ? '☀️ Light' : '🌙 Dark' }}
-      </button>
-    </div>
-  </header>
+    <div class="section-divider"></div>
 
-  <div class="main-layout">
-    @if (currentBook) {
-      <aside class="sidebar-toc">
-        <h3>Table of Contents</h3>
-        <ul>
-          @for (chapter of currentBook.chapters; track chapter.title; let i = $index) {
-            <li
-              [class.active-chapter-link]="i === activeChapterIndex"
-              (click)="selectChapter(i)">
-              {{ chapter.title }}
-            </li>
-          }
-        </ul>
-      </aside>
-    }
+    @if (authorBooks().length > 0) {
+      <div class="book-grid">
+        @for (book of authorBooks(); track book.id || book.Id || $index) {
+          <div class="book-card">
 
-    <main class="reading-pane">
-      
-      <div class="split-content-row">
-        
-        <div class="text-content-column">
-          @if (activeChapter) {
-            <article class="content-wrapper">
-              <h2 class="chapter-heading">{{ activeChapter.title }}</h2>
-              <p class="chapter-body-text" [style.font-size.px]="fontSize">
-                {{ activeChapter.content }}
-              </p>
-            </article>
-          } @else {
-            <div class="error-pane">
-              <p>Error loading book data resource. Please return to the library dashboard.</p>
+            <div class="cover-wrapper">
+              <img [src]="book.coverImage || book.CoverImage || 'assets/default-cover.png'" alt="Book Cover" class="book-cover" />
             </div>
-          }
-        </div>
 
-        <div class="sticky-meta-column">
-          @if (currentBook) {
-            <div class="reader-header-pane">
-              <div class="meta-details">
-                <h1>{{ currentBook.title }}</h1>
-                <p class="author-tag">By {{ currentBook.author }}</p>
-              </div>
-
-              
+            <div class="book-info">
+              <h3 class="book-title-display">{{ book.title || book.Title || 'Untitled Book' }}</h3>
             </div>
-          }
-        </div>
 
-        </div> @if (currentBook) {
-        <footer class="chapter-navigation">
-        <div class="download-action-container">
-                <a [href]="currentBook.googleDriveLink"
-                   target="_blank"
-                   rel="noopener noreferrer"
-                   class="btn-download">
-                  <span class="icon">💾</span> Download Full Book File
-                </a>
-         </div>
-        </footer>
+            @if (book.googleDriveLink || book.GoogleDriveLink) {
+              <a [href]="book.googleDriveLink || book.GoogleDriveLink" target="_blank" rel="noopener noreferrer" class="download-action-badge">
+                Download Option
+              </a>
+            }
+
+          </div>
         }
-      
-        @if (activeChapter) {
-        <footer class="chapter-navigation">
-          <!-- <button [disabled]="activeChapterIndex === 0" (click)="selectChapter(activeChapterIndex - 1)">
-            Previous Chapter
-          </button>
-          <button [disabled]="currentBook ? activeChapterIndex === currentBook.chapters.length - 1 : true" (click)="selectChapter(activeChapterIndex + 1)">
-            Next Chapter
-          </button> -->
-        </footer>
-      }
+      </div>
+    } @else {
+      <div class="no-books-card-state">
+        <p>⚠️ No linked books found in catalog under this specific profiling folder.</p>
+      </div>
+    }
 
-    </main>
   </div>
 </div>

@@ -1,0 +1,95 @@
+<div [class.dark-theme-wrapper]="themeService.isDarkMode()" [class.rtl-mode]="languageService.currentLang() === 'ur'">
+  <div class="admin-wrapper">
+
+    @if (isEditingMode()) {
+      <div class="admin-card">
+        <div class="admin-header">
+          <h2>✏️ Edit Book Metadata</h2>
+          <p>Modify publication properties directly. Changes save instantly down to your core database files.</p>
+        </div>
+
+        <form (ngSubmit)="onUpdateBook()">
+          <div class="admin-form-group">
+            <label>Book Title</label>
+            <input type="text" name="title" [(ngModel)]="title" class="admin-input" required>
+          </div>
+          <div class="admin-form-group">
+            <label>Author Name</label>
+            <input type="text" name="author" [(ngModel)]="author" class="admin-input" required>
+          </div>
+          <div class="admin-form-group">
+            <label>Cover Asset Path</label>
+            <input type="text" name="coverImage" [(ngModel)]="coverImage" class="admin-input" required>
+          </div>
+          <div class="admin-form-group">
+            <label>Google Drive Stream URL</label>
+            <input type="url" name="googleDriveLink" [(ngModel)]="googleDriveLink" class="admin-input" required>
+          </div>
+
+          <div class="admin-action-row">
+            <button type="button" (click)="cancelEdit()" class="btn-cancel">Cancel</button>
+            <button type="submit" class="btn-primary-push">Save Changes</button>
+          </div>
+        </form>
+      </div>
+    }
+
+    <div class="admin-card catalog-card">
+      <div class="admin-header header-with-btn">
+        <div class="header-text-block">
+          <h3>📚 Active Library Holdings</h3>
+          <p>Review current catalog uploads. Use the operation menus (`⋮`) to modify records, or <strong>click and drag rows freely</strong> to change showcase sequencing.</p>
+        </div>
+        <button class="btn-secondary-back" (click)="backToHub()">↩️ Control Hub</button>
+      </div>
+
+      @if (successMessage()) { <div class="alert alert-success">{{ successMessage() }}</div> }
+      @if (errorMessage()) { <div class="alert alert-danger">⚠️ {{ errorMessage() }}</div> }
+
+      <div class="sequence-action-bar">
+        <button type="button" class="btn-save-sequence" (click)="onSaveSequence()" [disabled]="isSavingSequence()">
+          {{ isSavingSequence() ? '⏳ Saving Sequence Layout...' : '↕️ Save Custom Arrangement Order' }}
+        </button>
+      </div>
+
+      <div class="catalog-list-stack">
+        @for (book of books(); track book.id || book.Id; let i = $index) {
+
+          <div class="catalog-row-item"
+               draggable="true"
+               (dragstart)="onDragStart(i)"
+               (dragover)="onDragOver($event)"
+               (drop)="onDrop(i)">
+
+            <div class="row-drag-handle" title="Hold and drag to move item position">☰</div>
+
+            <div class="row-cover-box">
+              <img [src]="book.coverImage || book.CoverImage" alt="Cover" class="list-row-thumb" />
+            </div>
+
+            <div class="row-info-box">
+              <h4 class="row-title">{{ book.title || book.Title }}</h4>
+              <p class="row-author">By {{ book.author || book.Author }}</p>
+              <span class="row-link-badge" [title]="book.googleDriveLink || book.GoogleDriveLink">🔗 Connected Resource Stream</span>
+            </div>
+
+            <div class="row-menu-context">
+              <button type="button" class="btn-dot-trigger" (click)="toggleActionMenu($event, book.id || book.Id)">⋮</button>
+
+              @if (activeMenuBookId() === (book.id || book.Id)) {
+                <div class="floating-action-bubble">
+                  <button type="button" class="bubble-item edit-item" (click)="onTriggerEditMode(book)">✏️ Edit Details</button>
+                  <button type="button" class="bubble-item delete-item" (click)="onDeleteBook(book.id !== undefined ? book.id : book.Id)">🗑️ Remove Item</button>
+                </div>
+              }
+            </div>
+
+          </div>
+        } @empty {
+          <div class="empty-list-prompt">🍃 No active publications indexed in your inventory repository arrays.</div>
+        }
+      </div>
+    </div>
+
+  </div>
+</div>

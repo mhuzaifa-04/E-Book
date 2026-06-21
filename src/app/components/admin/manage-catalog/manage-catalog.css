@@ -1,0 +1,181 @@
+:host {
+  --admin-bg-wrapper: var(--bg-surface, var(--bg-secondary, #f8fafc));
+  --admin-bg-card: var(--bg-primary, #ffffff);
+  --admin-border: var(--border-card, var(--border-color, #e2e8f0));
+  --admin-text: var(--text-main, #0f172a);
+  --admin-text-muted: var(--text-muted, #64748b);
+  --admin-row-bg: var(--bg-primary, #ffffff);
+  --admin-row-hover: #f1f5f9;
+  --admin-bubble-bg: #ffffff;
+  --admin-bubble-shadow: rgba(15, 23, 42, 0.08);
+}
+
+.dark-theme-wrapper {
+  --admin-bg-wrapper: #0b0f19;
+  --admin-bg-card: #141f32;
+  --admin-border: #22344e;
+  --admin-text: #f8fafc;
+  --admin-text-muted: #7d91b0;
+  --admin-row-bg: #1a263d;
+  --admin-row-hover: #202e4a;
+  --admin-bubble-bg: #1e2d4a;
+  --admin-bubble-shadow: rgba(0, 0, 0, 0.3);
+}
+
+.admin-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  width: 100%;
+  padding: 3rem 1.5rem;
+  min-height: calc(100vh - 140px);
+  gap: 2rem;
+  box-sizing: border-box;
+  background-color: var(--admin-bg-wrapper);
+  transition: background-color 0.25s ease;
+}
+
+.admin-card {
+  width: 100%;
+  max-width: 650px;
+  border-radius: 12px;
+  padding: 2.5rem;
+  box-sizing: border-box;
+  background-color: var(--admin-bg-card);
+  border: 1px solid var(--admin-border);
+  box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.03);
+  transition: all 0.25s ease;
+}
+
+.admin-header {
+  border-bottom: 1px solid var(--admin-border);
+  padding-bottom: 1rem;
+  margin-bottom: 1.75rem;
+}
+
+.header-with-btn {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+}
+.header-text-block { text-align: left; }
+
+.admin-header h2, .admin-header h3 {
+  margin: 0 0 0.4rem 0;
+  color: var(--admin-text);
+  font-weight: 800;
+  font-size: 1.45rem;
+}
+
+.admin-header p {
+  color: var(--admin-text-muted);
+  font-size: 0.9rem;
+  margin: 0;
+  line-height: 1.4;
+}
+
+/* Form Styles */
+.admin-form-group { margin-bottom: 1.25rem; }
+.admin-form-group label { display: block; font-size: 0.88rem; font-weight: 600; color: var(--admin-text); margin-bottom: 0.4rem; text-align: left; }
+.admin-input { width: 100%; padding: 0.8rem 1.1rem; border-radius: 8px; font-size: 0.95rem; box-sizing: border-box; border: 1.5px solid var(--admin-border); background-color: var(--admin-bg-card); color: var(--admin-text); transition: all 0.2s ease; }
+.admin-input:focus { outline: none; border-color: var(--accent-color, #2563eb); box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15); }
+
+/* Buttons & Rows Action layouts */
+.admin-action-row { display: flex; justify-content: space-between; align-items: center; gap: 1rem; margin-top: 1.75rem; }
+.btn-primary-push { background-color: var(--accent-color, #2563eb); color: white; border: none; padding: 0.8rem 1.5rem; border-radius: 8px; font-weight: 600; cursor: pointer; }
+.btn-secondary-back { background-color: var(--admin-th-bg); border: 1px solid var(--admin-border); color: var(--admin-text); padding: 0.6rem 1.2rem; border-radius: 8px; font-weight: 600; font-size: 0.88rem; cursor: pointer; }
+.btn-cancel { background-color: #ef4444; color: white; border: none; padding: 0.8rem 1.5rem; border-radius: 8px; font-weight: 600; cursor: pointer; }
+
+/* 🛠️ INLINE DATA ROWS & SELECTION BUBBLES */
+.catalog-list-stack { display: flex; flex-direction: column; gap: 0.75rem; width: 100%; }
+.catalog-row-item { display: flex; align-items: center; padding: 12px 16px; border-radius: 8px; background-color: var(--admin-row-bg); border: 1px solid var(--admin-border); transition: all 0.2s ease; }
+.catalog-row-item:hover { background-color: var(--admin-row-hover); transform: translateX(2px); }
+
+.row-cover-box { flex-shrink: 0; margin-right: 16px; }
+.list-row-thumb { width: 40px; height: 54px; object-fit: cover; border-radius: 4px; box-shadow: 0 2px 5px rgba(0,0,0,0.12); display: block; }
+.row-info-box { flex-grow: 1; min-width: 0; text-align: left; }
+.row-title { margin: 0; font-size: 0.98rem; font-weight: 700; color: var(--admin-text); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.row-author { margin: 2px 0 4px 0; font-size: 0.82rem; color: var(--admin-text-muted); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.row-link-badge { display: inline-block; font-size: 0.72rem; font-weight: 600; padding: 2px 8px; border-radius: 12px; background-color: rgba(37, 99, 235, 0.08); color: var(--accent-color, #2563eb); }
+
+/* Dropdown overlay structures engine code block */
+.row-menu-context { position: relative; flex-shrink: 0; margin-left: 12px; }
+.btn-dot-trigger { background: transparent; border: none; color: var(--admin-text-muted); font-size: 1.4rem; font-weight: bold; padding: 4px 10px; border-radius: 6px; cursor: pointer; transition: all 0.15s ease; }
+.btn-dot-trigger:hover { background-color: var(--admin-border); color: var(--admin-text); }
+
+.floating-action-bubble {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  z-index: 999;
+  margin-top: 4px;
+  width: 170px;
+  border-radius: 8px;
+  background-color: var(--admin-bubble-bg);
+  border: 1px solid var(--admin-border);
+  box-shadow: 0 10px 15px -3px var(--admin-bubble-shadow);
+  padding: 6px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.bubble-item { width: 100%; padding: 8px 12px; border: none; background: transparent; border-radius: 6px; font-size: 0.84rem; font-weight: 600; text-align: left; cursor: pointer; }
+.edit-item { color: var(--admin-text); }
+.edit-item:hover { background-color: var(--admin-border); }
+.delete-item { color: #ef4444; }
+.delete-item:hover { background-color: rgba(239, 68, 68, 0.08); }
+
+.empty-list-prompt { padding: 30px; text-align: center; color: var(--admin-text-muted); font-style: italic; font-size: 0.9rem; }
+.alert { padding: 0.8rem 1rem; border-radius: 8px; margin-bottom: 1.5rem; font-size: 0.9rem; font-weight: 500; text-align: left; }
+.alert-success { background-color: rgba(22, 163, 74, 0.12); border: 1px solid rgba(22, 163, 74, 0.25); color: #16a34a; }
+.alert-danger { background-color: rgba(239, 68, 68, 0.12); border: 1px solid rgba(239, 68, 68, 0.25); color: #ef4444; }
+
+.rtl-mode { direction: rtl; text-align: right; }
+.rtl-mode .row-info-box { text-align: right; }
+.rtl-mode .row-cover-box { margin-right: 0; margin-left: 16px; }
+.rtl-mode .floating-action-bubble { right: auto; left: 0; }
+.rtl-mode .bubble-item { text-align: right; }
+
+/* Styling the Drag Interactions inside your primary Catalog list layout styles */
+.catalog-row-item {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 12px;
+  background: var(--admin-card-bg, #fff);
+  border-bottom: 1px solid var(--admin-border, #e5e7eb);
+  cursor: grab; /* Mouse pointer switches cleanly to a hand icon */
+  user-select: none;
+  transition: transform 0.15s ease, background-color 0.15s ease;
+}
+
+.catalog-row-item:active {
+  cursor: grabbing; /* Mouse turns to closed fist when active click-drag states map */
+  background-color: rgba(37, 99, 235, 0.04);
+  transform: scale(0.995);
+  border: 1px dashed #2563eb;
+}
+
+.drag-reorder-grip {
+  color: #9ca3af;
+  font-size: 1.1rem;
+  padding-right: 4px;
+}
+
+.btn-save-sequence {
+  background-color: #2563eb;
+  color: #ffffff;
+  border: none;
+  padding: 10px 18px;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  margin-bottom: 15px;
+  transition: background-color 0.2s ease;
+}
+.btn-save-sequence:hover {
+  background-color: #1d4ed8;
+}

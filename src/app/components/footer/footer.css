@@ -1,0 +1,309 @@
+.premium-footer {
+  width: 100%;
+  padding-top: 4rem;
+  font-family: inherit;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+/* Theme Adaptations */
+.light-theme-wrapper .premium-footer {
+  background-color: #f8fafc;
+  border-top: 1px solid #e2e8f0;
+  color: #334155;
+}
+.dark-theme-wrapper .premium-footer {
+  background-color: #0f0f12;
+  border-top: 1px solid #1e1e24;
+  color: #94a3b8;
+}
+
+.footer-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 3rem;
+}
+
+@media (min-width: 768px) {
+  .footer-container {
+    grid-template-columns: 2fr 1fr 1fr 1.5fr;
+  }
+}
+
+/* Brand Styles */
+.footer-logo {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 1.4rem;
+  font-weight: 800;
+  margin-bottom: 1.2rem;
+}
+.light-theme-wrapper .footer-logo { color: #0f172a; }
+.dark-theme-wrapper .footer-logo { color: #ffffff; }
+
+.footer-logo .highlight {
+  color: #0091ff;
+}
+
+.highlight {
+
+  color: #0091ff;
+}
+
+.brand-tagline {
+  font-size: 0.9rem;
+  line-height: 1.6;
+  margin-bottom: 1.5rem;
+}
+
+.social-links-stream {
+  display: flex;
+  gap: 0.75rem;
+}
+
+.social-icon-btn {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  font-size: 1rem;
+  transition: all 0.2s ease;
+}
+.light-theme-wrapper .social-icon-btn {
+  background-color: #e2e8f0;
+}
+.dark-theme-wrapper .social-icon-btn {
+  background-color: #1e1e24;
+}
+.social-icon-btn:hover {
+  transform: translateY(-3px);
+  background-color: #0091ff;
+  color: white !important;
+}
+
+/* Dynamic Links Columns */
+.footer-links-column h3, .footer-specs-column h3 {
+  font-size: 1rem;
+  font-weight: 700;
+  margin-bottom: 1.2rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+.light-theme-wrapper .footer-links-column h3, .light-theme-wrapper .footer-specs-column h3 { color: #0f172a; }
+.dark-theme-wrapper .footer-links-column h3, .dark-theme-wrapper .footer-specs-column h3 { color: #f4f4f5; }
+
+.footer-links-column ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.footer-links-column ul a {
+  text-decoration: none;
+  font-size: 0.95rem;
+  transition: color 0.2s ease, padding-left 0.2s ease;
+}
+.light-theme-wrapper .footer-links-column ul a { color: #475569; }
+.dark-theme-wrapper .footer-links-column ul a { color: #a1a1aa; }
+
+.footer-links-column ul a:hover {
+  color: #0091ff;
+  padding-left: 4px;
+}
+
+/* System Specifications Configuration */
+.spec-description {
+  font-size: 0.85rem;
+  line-height: 1.5;
+  margin-bottom: 1rem;
+}
+
+/* Badges Flex Wrapper Container */
+.tech-stack-badges {
+  display: flex;
+  flex-direction: column; /* Stacks nicely on small viewports */
+  gap: 0.75rem;
+  margin-top: 1rem;
+  width: max-content;
+}
+
+@media (min-width: 480px) {
+  .tech-stack-badges {
+    flex-direction: row; /* Horizontal on tablets and desktops */
+    flex-wrap: wrap;
+  }
+}
+
+/* Base Premium Badge Token */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 0.9rem;
+  border-radius: 8px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: default;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+/* 🌟 Light Theme Settings (High Contrast Solid Blocks) */
+.light-theme-wrapper .badge {
+  background-color: #0f172a;
+  color: #ffffff;
+  border: 1px solid transparent;
+}
+
+/* 🌟 Dark Theme Settings (Sleek Bordered Cards) */
+.dark-theme-wrapper .badge {
+  background-color: #1e1e24;
+  color: #f4f4f5;
+  border: 1px solid #3f3f46;
+}
+
+/* Emoji Icon Accent Spacing */
+.badge-icon {
+  font-size: 0.95rem;
+  display: inline-block;
+  transition: transform 0.2s ease;
+}
+
+/* Interactive Hover Lift Effects */
+.badge:hover {
+  transform: translateY(-3px);
+  color: #ffffff !important;
+  box-shadow: 0 6px 15px rgba(0, 145, 255, 0.25);
+}
+
+.badge:hover .badge-icon {
+  transform: scale(1.2) rotate(5deg);
+}
+
+/* Unique Brand Borders & Hover Color Highlights */
+.angular-badge:hover {
+  background-color: #e23237 !important; /* Angular Red */
+  border-color: #e23237 !important;
+}
+
+.dotnet-badge:hover {
+  background-color: #512bd4 !important; /* .NET Purple */
+  border-color: #512bd4 !important;
+}
+
+.sql-badge:hover {
+  background-color: #00758f !important; /* SQL Server Blue */
+  border-color: #00758f !important;
+}
+.light-theme-wrapper .badge { background-color: #f1f5f9; color: #475569; border: 1px solid #cbd5e1; }
+.dark-theme-wrapper .badge { background-color: #16161a; color: #a1a1aa; border: 1px solid #2d2d34; }
+
+/* Premium Utility Bottom Bar */
+.footer-bottom-bar {
+  margin-top: 4rem;
+  padding: 1.5rem 0;
+  transition: border-color 0.3s ease;
+}
+.light-theme-wrapper .footer-bottom-bar { border-top: 1px solid #e2e8f0; }
+.dark-theme-wrapper .footer-bottom-bar { border-top: 1px solid #1e1e24; }
+
+.bottom-bar-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 0.85rem;
+}
+
+@media (min-width: 640px) {
+  .bottom-bar-container {
+    flex-direction: row;
+  }
+}
+
+.bottom-utility-links {
+  display: flex;
+  gap: 0.75rem;
+  align-items: center;
+}
+
+.bottom-utility-links a {
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+.light-theme-wrapper .bottom-utility-links a { color: #64748b; }
+.dark-theme-wrapper .bottom-utility-links a { color: #71717a; }
+.bottom-utility-links a:hover { color: #0091ff; }
+
+.divider {
+  color: #4b5563;
+}
+
+/* About Me & Bio Styling */
+.footer-about-me-column h3 {
+  font-size: 1rem;
+  font-weight: 700;
+  margin-bottom: 1.2rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+.light-theme-wrapper .footer-about-me-column h3 { color: #0f172a; }
+.dark-theme-wrapper .footer-about-me-column h3 { color: #f4f4f5; }
+
+.dev-bio {
+  font-size: 0.9rem;
+  line-height: 1.6;
+  margin-bottom: 1.2rem;
+}
+.light-theme-wrapper .dev-bio { color: #475569; }
+.dark-theme-wrapper .dev-bio { color: #a1a1aa; }
+
+/* Premium GitHub Badge Button */
+.github-badge-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.6rem 1rem;
+  border-radius: 8px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  text-decoration: none;
+  transition: all 0.2s ease-of-use;
+  width: max-content;
+}
+
+.light-theme-wrapper .github-badge-btn {
+  background-color: #0f172a;
+  color: #ffffff;
+}
+.dark-theme-wrapper .github-badge-btn {
+  background-color: #27272a;
+  color: #ffffff;
+  border: 1px solid #3f3f46;
+}
+
+.github-badge-btn:hover {
+  background-color: #e23237;
+  border-color: #0091ff;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 145, 255, 0.3);
+}
+
+.git-logo {
+  font-size: 1.1rem;
+
+}
+

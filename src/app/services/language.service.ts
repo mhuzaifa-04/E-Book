@@ -11,7 +11,7 @@ export class LanguageService {
 
   private translations: Record<Language, Record<string, string>> = {
     en: {
-      title: 'My Digital Library',
+      title: 'Al Furqan Library',
       subtitle: 'Click any book cover below to instantly download the PDF from our repository',
       searchPlaceholder: 'Search by book title...',
       allAuthors: 'All Authors',
@@ -22,7 +22,7 @@ export class LanguageService {
       navAbout: 'About My Mentor'
     },
     ur: {
-      title: 'میری ڈیجیٹل لائبریری',
+      title: 'الفرقان لائبریری',
       subtitle: 'ہمارے ذخیرے سے پی ڈی ایف فوری ڈاؤن لوڈ کرنے کے لیے نیچے کسی بھی کتاب کے سرورق پر کلک کریں۔',
       searchPlaceholder: 'کتاب کا عنوان تلاش کریں...',
       allAuthors: 'تمام مصنفین',
@@ -37,7 +37,7 @@ export class LanguageService {
   toggleLanguage() {
     const nextLang = this.currentLang() === 'en' ? 'ur' : 'en';
     this.currentLang.set(nextLang);
-    
+
     // Toggle page direction for RTL text handling (Urdu reads right-to-left)
     document.documentElement.dir = nextLang === 'ur' ? 'rtl' : 'ltr';
     document.documentElement.lang = nextLang;

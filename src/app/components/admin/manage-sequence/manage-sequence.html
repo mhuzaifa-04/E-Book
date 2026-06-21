@@ -1,0 +1,41 @@
+<div [class.dark-theme-wrapper]="themeService.isDarkMode()">
+  <div class="sequence-container">
+    <div class="sequence-card">
+
+      <div class="sequence-header">
+        <h2>↕️ Arrange Book Sequence</h2>
+        <p>Drag and drop items freely to reorder how they appear in the main library showcase grids.</p>
+      </div>
+
+      @if (successMessage()) { <div class="alert alert-success">✅ {{ successMessage() }}</div> }
+
+      <!-- Clean, native list group -->
+      <div class="drag-list-group">
+        @for (book of booksList(); track book.id; let i = $index) {
+          <div class="drag-item"
+               draggable="true"
+               (dragstart)="onDragStart(i)"
+               (dragover)="onDragOver($event)"
+               (drop)="onDrop(i)">
+            <div class="drag-handle">☰</div>
+            <img [src]="book.coverImage" alt="Cover" class="mini-cover-preview" />
+            <div class="book-details">
+              <span class="book-title">{{ book.title }}</span>
+              <span class="book-author">{{ book.author }}</span>
+            </div>
+          </div>
+        }
+      </div>
+
+      <div class="action-row">
+        <button type="button" (click)="backToHub()" class="btn-back" [disabled]="isSaving()">
+          ↩️ Control Hub
+        </button>
+        <button type="button" (click)="onSaveSequence()" class="btn-save" [disabled]="isSaving()">
+          {{ isSaving() ? 'Saving Order...' : '💾 Save New Sequence' }}
+        </button>
+      </div>
+
+    </div>
+  </div>
+</div>

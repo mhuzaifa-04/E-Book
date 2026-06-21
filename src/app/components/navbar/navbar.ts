@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import { LanguageService } from '../../services/language.service';
+import { ThemeService } from '../../services/theme.service';
 
 @Component({
   selector: 'app-navbar',
@@ -15,4 +16,5 @@ export class NavbarComponent {
   // 🟢 Injecting layout configuration controls
   public authService = inject(AuthService);
   public languageService = inject(LanguageService);
+  // public themeService = inject(ThemeService);
 }

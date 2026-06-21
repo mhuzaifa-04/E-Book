@@ -1,48 +1,14 @@
 /* ============================================================================
-   1. DYNAMIC THEME ENGINE VARIABLES
-   ============================================================================ */
-
-/* ☀️ LIGHT MODE VARIANT DEFINITIONS (Default State) */
-:host {
-  --nav-bg: #ffffff;
-  --nav-border: #e2e8f0;
-  --nav-logo-color: #1e293b;
-  --nav-text: #64748b;
-  --nav-accent: #2563eb;
-  --nav-logout-bg: #fef2f2;
-  --nav-logout-border: #fca5a5;
-  --nav-logout-text: #b91c1c;
-}
-
-/* 🌙 DARK MODE VARIANT DEFINITIONS (Active when parent has .dark-theme-wrapper) */
-:host-context(.dark-theme-wrapper) {
-  --nav-bg: #121212;         /* 🟢 Matches your exact dark home background */
-  --nav-border: #1f1f23;
-  --nav-logo-color: #ffffff;
-  --nav-text: #a1a1aa;       /* Matches your dark home subtext gray */
-  --nav-accent: #3b82f6;     /* Neon blue highlight match */
-  --nav-logout-bg: #27272a;
-  --nav-logout-border: #3f3f46;
-  --nav-logout-text: #ef4444;
-}
-
-/* Alternate parent targeting backup layer selector if :host-context hydrations shift */
-:root .dark-theme-wrapper .navbar {
-  background-color: #121212;
-  border-color: #1f1f23;
-}
-
-/* ============================================================================
-   2. UNIFIED COMPONENT STYLE FRAMEWORK (ADAPTS TO BOTH MODES)
+   2. UNIFIED COMPONENT STYLE FRAMEWORK (READS VARIABLES GENERATED ABOVE)
    ============================================================================ */
 .navbar {
-  background-color: var(--nav-bg);
-  border-bottom: 1px solid var(--nav-border);
+  background-color: var(--nav-bg) !important;
+  border-bottom: 2px solid var(--nav-border) !important;
   padding: 1.2rem 2rem;
   position: sticky;
   top: 0;
   z-index: 100;
-  transition: background-color 0.2s ease, border-color 0.2s ease;
+  transition: background-color 0.25s ease, border-color 0.25s ease;
 }
 
 .nav-container {
@@ -54,10 +20,13 @@
 }
 
 .nav-logo {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
   font-size: 1.3rem;
   font-weight: 700;
   text-decoration: none;
-  color: var(--nav-logo-color);
+  color: var(--nav-logo-color) !important;
   transition: color 0.2s ease;
 }
 
@@ -69,39 +38,38 @@
 .nav-links a {
   margin-left: 1.8rem;
   text-decoration: none;
-  color: var(--nav-text);
+  color: var(--nav-text) !important;
   font-weight: 500;
   padding: 0.5rem 0;
+  border-bottom: 2px solid transparent;
   transition: all 0.2s ease;
 }
 
-/* Active Highlight Underline Layout */
+/* Active Highlight Underline States */
 .nav-links a:hover, .active-link {
   color: var(--nav-accent) !important;
-  border-bottom: 2px solid var(--nav-accent);
+  border-bottom: 2px solid var(--nav-accent) !important;
 }
 
-/* Administrative Special Border Link */
 .admin-badge-link {
   border: 1px dashed var(--nav-accent) !important;
   border-radius: 6px;
   padding: 0.5rem 0.75rem !important;
 }
 
-/* User Identity Greeting Layout */
 .user-welcome {
-  color: var(--nav-logo-color);
+  color: var(--nav-logo-color) !important;
   margin-left: 1.8rem;
   font-weight: 600;
   font-size: 0.95rem;
+  transition: color 0.25s ease;
 }
 
-/* Logout Functional Trigger Control */
 .nav-logout-btn {
   margin-left: 1.8rem;
-  background-color: var(--nav-logout-bg);
-  border: 1px solid var(--nav-logout-border);
-  color: var(--nav-logout-text);
+  background-color: var(--nav-logout-bg) !important;
+  border: 1px solid var(--nav-logout-border) !important;
+  color: var(--nav-logout-text) !important;
   padding: 0.5rem 1rem;
   border-radius: 6px;
   font-weight: 600;
@@ -112,26 +80,27 @@
   filter: brightness(0.9);
 }
 
-/* Main Dedicated Gateway Login CTA Option Link */
 .nav-login-link {
-  background-color: #2563eb !important;
-  color: #ffffff !important;
+  background-color: var(--nav-login-bg) !important;
+  color: var(--nav-login-text) !important;
   padding: 0.6rem 1.2rem !important;
   border-radius: 6px;
+  font-weight: 700;
 }
 .nav-login-link:hover {
-  border-bottom: none !important;
+  border-bottom: 2px solid transparent !important;
   filter: brightness(0.9);
 }
 
 /* ============================================================================
-   3. DIRECTION UTILITIES (URDU TYPOGRAPHY CONFIGURATION)
+   3. DIRECTION UTILITIES (URDU RTL TYPOGRAPHY DESIGN)
    ============================================================================ */
 .rtl-mode .nav-container {
   flex-direction: row-reverse;
 }
-.rtl-mode .nav-links a, 
-.rtl-mode .user-welcome, 
+
+.rtl-mode .nav-links a,
+.rtl-mode .user-welcome,
 .rtl-mode .nav-logout-btn {
   margin-right: 1.8rem;
   margin-left: 0;

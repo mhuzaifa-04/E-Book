@@ -1,0 +1,139 @@
+:host {
+  --diag-bg: var(--bg-surface, var(--bg-secondary, #f8fafc));
+  --diag-card: var(--bg-primary, #ffffff);
+  --diag-border: var(--border-card, var(--border-color, #e2e8f0));
+  --diag-text: var(--text-main, #0f172a);
+  --diag-text-muted: var(--text-muted, #64748b);
+  --diag-tile-bg: #ffffff;
+}
+
+.dark-theme-wrapper {
+  --diag-bg: #0b0f19;
+  --diag-card: #141f32;
+  --diag-border: #22344e;
+  --diag-text: #f8fafc;
+  --diag-text-muted: #7d91b0;
+  --diag-tile-bg: #1a263d;
+}
+
+.analytics-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  padding: 3rem 1.5rem;
+  background-color: var(--diag-bg);
+  min-height: calc(100vh - 140px);
+  gap: 2rem;
+  box-sizing: border-box;
+  transition: background-color 0.25s ease;
+}
+
+.analytics-card {
+  width: 100%;
+  max-width: 800px;
+  border-radius: 12px;
+  padding: 2.25rem;
+  box-sizing: border-box;
+  background-color: var(--diag-card);
+  border: 1px solid var(--diag-border);
+  box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.03);
+  transition: all 0.25s ease;
+}
+
+.header-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+}
+
+.analytics-header { text-align: left; flex: 1; min-width: 280px; }
+.analytics-header h2 { margin: 0 0 0.4rem 0; color: var(--diag-text); font-weight: 800; font-size: 1.6rem; }
+.analytics-header p { margin: 0; color: var(--diag-text-muted); font-size: 0.92rem; line-height: 1.4; }
+
+.header-actions { display: flex; gap: 10px; align-items: center; }
+
+.btn-refresh {
+  background-color: var(--accent-color, #2563eb);
+  color: white;
+  border: none;
+  padding: 0.75rem 1.4rem;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: opacity 0.2s;
+}
+.btn-refresh:disabled { opacity: 0.6; cursor: not-allowed; }
+
+.btn-secondary-back {
+  background-color: var(--diag-bg);
+  border: 1px solid var(--diag-border);
+  color: var(--diag-text);
+  padding: 0.75rem 1.4rem;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+
+/* 🟢 TELEMETRY PANELS TILES GRID */
+.diagnostics-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+  gap: 1.5rem;
+  width: 100%;
+  max-width: 800px;
+}
+
+.metric-tile {
+  background-color: var(--diag-tile-bg);
+  border: 1px solid var(--diag-border);
+  border-radius: 10px;
+  padding: 1.5rem;
+  display: flex;
+  align-items: flex-start;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.metric-tile:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.03); }
+
+.tile-icon {
+  font-size: 1.5rem;
+  margin-right: 14px;
+  padding: 10px;
+  border-radius: 8px;
+  background-color: rgba(37, 99, 235, 0.05);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.tile-body { text-align: left; }
+.tile-body h5 { margin: 0 0 0.3rem 0; color: var(--diag-text-muted); font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.05em; font-weight: 700; }
+.tile-body h4 { margin: 0 0 0.4rem 0; color: var(--diag-text); font-size: 1.6rem; font-weight: 800; }
+.tile-body p { margin: 0; color: var(--diag-text-muted); font-size: 0.85rem; line-height: 1.4; }
+
+/* Specifications Details Meta Info Box */
+.system-info-card { text-align: left; }
+.system-info-card h3 { margin: 0 0 1rem 0; color: var(--diag-text); font-size: 1.15rem; font-weight: 700; }
+
+.spec-list { list-style: none; padding: 0; margin: 0; }
+.spec-list li { padding: 12px 0; border-bottom: 1px solid var(--diag-border); color: var(--diag-text); font-size: 0.9rem; }
+.spec-list li:last-child { border: none; }
+.spec-list strong { color: var(--diag-text); font-weight: 600; }
+
+/* Loading States */
+.loading-container { display: flex; flex-direction: column; align-items: center; gap: 1rem; margin: 3rem 0; color: var(--diag-text-muted); }
+.spinner { width: 32px; height: 32px; border: 3px solid var(--diag-border); border-top-color: var(--accent-color, #2563eb); border-radius: 50%; animation: spin 0.8s linear infinite; }
+@keyframes spin { to { transform: rotate(360deg); } }
+
+.alert { width: 100%; max-width: 800px; padding: 1rem; border-radius: 8px; background-color: rgba(239, 68, 68, 0.1); color: #ef4444; border: 1px solid rgba(239, 68, 68, 0.2); text-align: left; box-sizing: border-box; }
+
+/* Right-To-Left Alignment Overrides */
+.rtl-mode { direction: rtl; text-align: right; }
+.rtl-mode .analytics-header { text-align: right; }
+.rtl-mode .tile-body { text-align: right; }
+.rtl-mode .tile-icon { margin-right: 0; margin-left: 14px; }
+.rtl-mode .system-info-card { text-align: right; }

@@ -1,55 +1,45 @@
 /* ============================================================================
    1. DYNAMIC CONFIGURATION VARIABLES (THEME ENGINE)
    ============================================================================ */
-
-/* ☀️ LIGHT MODE VARIABLES (Default State) */
 :host {
   --bg-primary: #ffffff;
   --bg-secondary: #f8fafc;
   --bg-element: #f1f5f9;
   --border-color: #cbd5e1;
-  --border-card: #e2e8f0;
+  --border-card: #000000; /* Darker borders to match your wireframe sketch */
   --text-main: #0f172a;
-  --text-muted: #64748b;
-  --input-focus-ring: rgba(37, 99, 235, 0.15);
-  --accent-color: #2563eb;
-  --accent-hover: #1d4ed8;
-  --card-shadow: 0 4px 6px -1px rgba(15, 23, 42, 0.05);
-  --card-shadow-hover: 0 12px 20px -3px rgba(15, 23, 42, 0.1);
+  --text-muted: #475569;
+  --accent-color: #0091ff; /* Clean blue button background matching the wireframe */
+  --accent-hover: #0077d6;
+  --card-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
 }
 
-/* 🌙 DARK MODE VARIANT OVERRIDES (Triggers when wrapper class is active) */
 .dark-theme-wrapper {
   --bg-primary: #18181b;
   --bg-secondary: #202024;
   --bg-element: #27272a;
-  --border-color: #27272a;
-  --border-card: #27272a;
+  --border-color: #3f3f46;
+  --border-card: #ffffff;
   --text-main: #ffffff;
   --text-muted: #a1a1aa;
-  --input-focus-ring: rgba(59, 130, 246, 0.2);
-  --accent-color: #3b82f6;
-  --accent-hover: #2563eb;
-  --card-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3);
-  --card-shadow-hover: 0 12px 24px -3px rgba(0, 0, 0, 0.5);
 }
 
 /* ============================================================================
-   2. UNIFIED STRUCTURE LAYOUT STYLE (ADAPTS TO BOTH MODES)
+   2. GRID & CONTAINER LAYOUT
    ============================================================================ */
 .library-container {
-  max-width: 1200px;
+  max-width: 1300px;
   margin: 0 auto;
   padding: 2rem 1.5rem;
   box-sizing: border-box;
 }
 
-/* Utility Control Buttons */
 .top-utility-row {
   display: flex;
   justify-content: flex-end;
   margin-bottom: 1rem;
 }
+
 .lang-toggle-btn, .theme-toggle-btn {
   background-color: var(--bg-element);
   border: 1px solid var(--border-color);
@@ -58,38 +48,20 @@
   border-radius: 6px;
   font-weight: 600;
   cursor: pointer;
-  transition: all 0.2s ease;
-}
-.lang-toggle-btn:hover, .theme-toggle-btn:hover {
-  filter: brightness(0.9);
-  border-color: var(--accent-color);
 }
 
-/* Main Dashboard Header */
 .library-header {
-  border-bottom: 1px solid var(--border-card);
+  border-bottom: 1px solid var(--border-color);
   padding-bottom: 1.5rem;
   margin-bottom: 2rem;
 }
+
 .header-main-row {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  gap: 1rem;
-}
-.library-header h1 {
-  font-size: 2.2rem;
-  color: var(--text-main);
-  margin: 0;
-  font-weight: 800;
-}
-.header-subtitle {
-  color: var(--text-muted);
-  font-size: 1.05rem;
-  margin: 0.5rem 0 0 0;
 }
 
-/* Controls & Toolbar Inputs */
 .controls-toolbar {
   display: flex;
   gap: 1rem;
@@ -105,118 +77,215 @@
   border: 1.5px solid var(--border-color);
   color: var(--text-main);
   border-radius: 8px;
-  font-size: 1rem;
-  box-sizing: border-box;
-  transition: all 0.2s ease;
-}
-.search-input::placeholder {
-  color: var(--text-muted);
-  opacity: 0.7;
-}
-.search-input:focus, .author-select:focus {
-  outline: none;
-  border-color: var(--accent-color);
-  box-shadow: 0 0 0 4px var(--input-focus-ring);
 }
 
-/* Geometric Dynamic Book Grid Layout */
+/* 🟢 THE GRID: Adjusted column limits to prioritize 3 to 4 books per row layout */
 .book-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-  gap: 2rem;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 2.5rem; /* Larger spacing layout matching image_d5f9f6.png */
   width: 100%;
-}
-.book-card-link {
-  text-decoration: none;
-  color: inherit;
-  display: block;
-}
-.book-card {
-  background-color: var(--bg-primary);
-  border: 1px solid var(--border-card);
-  border-radius: 12px;
-  overflow: hidden;
-  box-shadow: var(--card-shadow);
-  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-}
-.book-card:hover {
-  transform: translateY(-5px);
-  box-shadow: var(--card-shadow-hover);
-  border-color: var(--text-muted);
-}
-.cover-wrapper {
-  background-color: var(--bg-secondary);
-  padding: 1.5rem 1rem 0 1rem;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-.book-cover {
-  width: 140px;
-  height: 200px;
-  object-fit: cover;
-  border-radius: 6px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-}
-.book-info {
-  padding: 1.25rem;
-  display: flex;
-  flex-direction: column;
-  flex-grow: 1;
-  text-align: center;
-}
-.book-title-text {
-  font-size: 1.1rem;
-  font-weight: 700;
-  color: var(--text-main);
-  margin: 0 0 0.4rem 0;
-  line-height: 1.4;
-}
-.author-text {
-  font-size: 0.9rem;
-  color: var(--text-muted);
-  margin: 0 0 1.25rem 0;
-}
-.download-action-badge {
-  margin-top: auto;
-  background-color: var(--accent-color);
-  color: #ffffff;
-  padding: 0.6rem;
-  border-radius: 6px;
-  font-size: 0.9rem;
-  font-weight: 600;
-  transition: background-color 0.2s ease;
-}
-.book-card:hover .download-action-badge {
-  background-color: var(--accent-hover);
-}
-
-/* States & Loader Handling */
-.empty-results-state, .loading-state-container {
-  grid-column: 1 / -1;
-  text-align: center;
-  padding: 4rem 2rem;
-  font-size: 1.1rem;
-  background-color: var(--bg-primary);
-  border-radius: 12px;
-  border: 2px dashed var(--border-color);
-  color: var(--text-muted);
 }
 
 /* ============================================================================
-   3. DIRECTION AND RESPONSIVENESS UTILITIES
+   3. WIREFRAME CARD DESIGN (MATCHING IMAGE_D5F9F6.PNG)
    ============================================================================ */
-.rtl-mode { text-align: right !important; }
-.rtl-mode .top-utility-row { justify-content: flex-start; }
-.rtl-mode .header-main-row { flex-direction: row-reverse; }
-.rtl-mode .controls-toolbar { flex-direction: row-reverse; }
-.rtl-mode .book-info { text-align: center; }
+.book-card {
+  background-color: var(--bg-primary);
+  border: 2px solid var(--border-card); /* Strong outline frame style */
+  border-radius: 4px;
+  padding: 1.5rem; /* Internal padding box pushes image and texts away from borders */
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Center-aligns all contents inside card */
+  justify-content: space-between;
+  background-color: var(--bg-primary);
+  min-height: 420px;
+  box-sizing: border-box;
+  transition: transform 0.2s ease;
+}
 
-@media (max-width: 640px) {
-  .controls-toolbar { flex-direction: column; }
-  .rtl-mode .controls-toolbar { flex-direction: column; }
-  .library-header h1 { font-size: 1.75rem; }
+.book-card:hover {
+  transform: translateY(-4px);
+}
+
+/* 🟢 IMAGE FRAME: Added a solid box outline around your images with internal padding */
+.cover-wrapper {
+  width: 100%;
+  height: 240px;
+  border: 2px solid var(--border-card); /* Inner image box border frame */
+  padding: 8px;
+  background-color: var(--bg-secondary);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-sizing: border-box;
+}
+
+/* 🟢 IMAGE SCALE RENDERING: Switched to contain to ensure full image visibility */
+.book-cover {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain; /* 🌟 Retains native layout dimensions perfectly without pixel clipping */
+  display: block;
+}
+
+/* 🟢 METADATA FRAME: Centers name text with custom vertical margins */
+.book-info {
+  width: 100%;
+  text-align: center;
+  margin: 1rem 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem; /* Even spacing between Title and Author text layers */
+}
+
+/* 🟢 NEW: Bold, highly legible formatting for the missing book title */
+.book-title-text {
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: #0f172a; /* Deep contrast charcoal/black text */
+  margin: 0;
+  line-height: 1.3;
+  /* Prevents text overlaps if titles are extraordinarily long */
+  word-wrap: break-word;
+}
+
+.author-text {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #475569; /* Slate gray styling to clearly distinguish it from the title */
+  margin: 0;
+}
+
+/* Dark Theme Overrides */
+.dark-theme-wrapper .book-title-text {
+  color: #ffffff;
+}
+.dark-theme-wrapper .author-text {
+  color: #cbd5e1;
+}
+
+/* 🟢 WIREFRAME ACTION BADGE: Bold, padded, pill button structure */
+.download-action-badge {
+  width: 90%;
+  background-color: var(--accent-color);
+  color: #ffffff;
+  padding: 0.65rem 1.2rem;
+  border: 2px solid #000000;
+  border-radius: 25px;
+  font-size: 0.95rem;
+  font-weight: 700;
+  text-align: center;
+  cursor: pointer;
+  text-decoration: none; /* 🟢 ADDED: Prevents underlines since it is now a hyperlink link */
+  display: inline-block; /* 🟢 ADDED: Allows padding calculations to expand safely */
+  box-sizing: border-box;
+  transition: background-color 0.15s ease;
+}
+
+.download-action-badge:hover {
+  background-color: var(--accent-hover);
+}
+
+/* Responsive fallbacks */
+@media (max-width: 768px) {
+  .book-grid {
+    grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+    gap: 1.5rem;
+  }
+}
+
+/* ============================================================================
+   🟢 AUTHOR TAB SWITCHER & FOLDER STYLES
+   ============================================================================ */
+/* Author Directories Grid Layout */
+.author-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 2rem;
+  width: 100%;
+}
+
+.author-folder-card {
+  background-color: var(--bg-primary);
+  border: 2px solid var(--border-card);
+  border-radius: 8px;
+  padding: 2rem 1.5rem;
+  text-align: center;
+  cursor: pointer;
+  box-shadow: var(--card-shadow);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.author-folder-card:hover {
+  transform: translateY(-5px);
+  background-color: var(--bg-secondary);
+}
+
+.folder-icon-wrapper {
+  font-size: 3.5rem; /* Large graphical folder symbol */
+  margin-bottom: 0.5rem;
+  color: #ffb703; /* Classic warm folder color */
+}
+
+.author-folder-title {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--text-main);
+  margin: 0.5rem 0 0.25rem 0;
+}
+
+.author-folder-count {
+  font-size: 0.85rem;
+  color: var(--accent-color);
+  font-weight: 600;
+  margin: 0;
+}
+/* ============================================================================
+   🟢 FORCE HIGH-CONTRAST VIEW MODE SWITCHER TABS
+   ============================================================================ */
+.view-switcher-tabs {
+  display: flex !important; /* Forces layout tracking */
+  gap: 1.5rem;
+  margin: 1.5rem 0 2rem 0;
+  border-bottom: 2px solid #cbd5e1; /* Visible divider row line */
+  padding-bottom: 0.75rem;
+  width: 100%;
+}
+
+.view-switcher-tabs button {
+  background: #f1f5f9 !important; /* Light gray backing block to see it immediately */
+  border: 1px solid #cbd5e1 !important;
+  color: #0f172a !important; /* Deep contrast dark text text style */
+  font-size: 1.05rem;
+  font-weight: 700;
+  padding: 0.6rem 1.2rem;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+/* Clear hover highlights */
+.view-switcher-tabs button:hover {
+  background-color: #e2e8f0 !important;
+  border-color: #0091ff !important;
+}
+
+/* 🌟 ACTIVE SELECTION STATE STYLE */
+.view-switcher-tabs button.active {
+  background-color: #0091ff !important; /* Striking wireframe accent blue blue */
+  color: #ffffff !important; /* Pop out bold text text highlights */
+  border-color: #000000 !important;
+  box-shadow: 0 4px 8px rgba(0, 145, 255, 0.25);
+}
+
+/* Dark theme overrides adjustment for the tabs */
+.dark-theme-wrapper .view-switcher-tabs button {
+  background: #27272a !important;
+  border-color: #3f3f46 !important;
+  color: #ffffff !important;
+}
+.dark-theme-wrapper .view-switcher-tabs button.active {
+  background-color: #3b82f6 !important;
 }

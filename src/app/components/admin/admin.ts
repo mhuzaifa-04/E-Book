@@ -1,10 +1,11 @@
-import { Component, OnInit, inject, signal } from '@angular/core';
+import { Component, OnInit, inject, signal} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
-
+import { ThemeService } from '../../services/theme.service';
+import { LanguageService } from '../../services/language.service';
 @Component({
   selector: 'app-admin',
   standalone: true,
@@ -16,6 +17,8 @@ export class AdminComponent implements OnInit {
   private http = inject(HttpClient);
   private router = inject(Router);
   public authService = inject(AuthService);
+  public themeService = inject(ThemeService);
+  public languageService = inject(LanguageService);
 
   private apiUrl = 'http://localhost:5091/api/books';
 
@@ -92,15 +95,16 @@ export class AdminComponent implements OnInit {
     }
   }
 
-  // 🟢 Triggers when an admin clicks an "Edit" button row item
   onTriggerEditMode(book: any) {
-    this.isEditingMode = true;
-    this.activeEditingBookId = book.id || book.Id;
-    this.title = book.title || book.Title;
-    this.author = book.author || book.Author;
-    this.coverImage = book.coverImage || book.CoverImage;
-    this.googleDriveLink = book.googleDriveLink || book.GoogleDriveLink;
-  }
+  this.isEditingMode = true;
+
+  // 🟢 SAFEST FALLBACK: Maps both camelCase and PascalCase payload properties correctly
+  this.activeEditingBookId = book.id !== undefined ? book.id : book.Id;
+  this.title = book.title || book.Title;
+  this.author = book.author || book.Author;
+  this.coverImage = book.coverImage || book.CoverImage;
+  this.googleDriveLink = book.googleDriveLink || book.GoogleDriveLink;
+}
 
   // 🟢 Triggers when an admin clicks a "Delete" button row item
   onDeleteBook(bookId: number) {
@@ -128,5 +132,28 @@ export class AdminComponent implements OnInit {
 
   goToLibrary() {
     this.router.navigate(['/']);
+  }
+
+  // 🟢 ADD THIS variable inside your AdminComponent class to keep track of the open dropdown row
+activeMenuBookId: string | null = null;
+
+// 🟢 ADD THIS method to open/toggle the action bubble
+toggleActionMenu(event: Event, bookId: string) {
+  event.stopPropagation(); // Prevents clicking the menu from firing window events
+  this.activeMenuBookId = this.activeMenuBookId === bookId ? null : bookId;
+}
+
+// 🟢 ADD THIS method inside ngOnInit or constructor to close menus when clicking anywhere else
+constructor() {
+  window.addEventListener('click', () => {
+    this.activeMenuBookId = null; // Closes any open dropdown when clicking outside
+  });
+}
+/**
+   * 🟢 Handles routing navigation shifts from the dashboard tiles
+   * @param route Path destination string (e.g., 'admin/add-book')
+   */
+  navigateTo(route: string): void {
+    this.router.navigate([route]);
   }
 }
