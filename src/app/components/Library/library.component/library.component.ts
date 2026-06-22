@@ -30,7 +30,7 @@ export class LibraryComponent implements OnInit {
 
 // Inject the router service into your class:
 
-  private apiUrl = 'http://localhost:5091/api/books';
+  private apiUrl = '/api/books';
 
   // Core Reactive Data Tracking Signals
   public books = signal<Book[]>([]);

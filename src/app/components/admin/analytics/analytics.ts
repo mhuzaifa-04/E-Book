@@ -19,7 +19,7 @@ export class AnalyticsComponent implements OnInit {
   public themeService = inject(ThemeService);
   public languageService = inject(LanguageService);
 
-  private apiUrl = 'http://localhost:5091/api/diagnostics/server-status';
+  private apiUrl = '/api/diagnostics/server-status';
 
   // Reactive dashboard signals
   public diagnosticData = signal<any>(null);

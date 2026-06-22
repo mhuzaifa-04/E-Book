@@ -72,7 +72,7 @@ export class AddBook implements OnInit {
     uploadPayload.append('file', this.selectedFile, this.selectedFile.name);
 
     // Step B: Stream binary down to C# endpoint (which securely forwards to Cloudinary)
-    this.http.post<any>('http://localhost:5091/api/books/upload-cover', uploadPayload).subscribe({
+    this.http.post<any>('/api/books/upload-cover', uploadPayload).subscribe({
       next: (uploadRes) => {
 
         // Step C: Build the final book record payload without relational category parameters
@@ -84,7 +84,7 @@ export class AddBook implements OnInit {
         };
 
         // Step D: Post full payload down to write into your backend database pipeline repository
-        this.http.post('http://localhost:5091/api/books', finalBookPayload).subscribe({
+        this.http.post('/api/books', finalBookPayload).subscribe({
           next: () => {
             this.successMessage.set('Publication live assets hosted and stored successfully!');
             this.resetForm();

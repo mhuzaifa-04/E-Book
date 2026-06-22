@@ -16,7 +16,7 @@ export class VisitTrackerService {
   private http = inject(HttpClient);
 
   // 🟢 Updated to match your actual working backend server port
-  private apiUrl = 'http://localhost:5091/api/analytics';
+  private apiUrl = '/api/analytics';
 
   trackVisit() {
     // 🌟 FIX: If they have a token OR have ever logged in on this machine before, skip the registration wall!

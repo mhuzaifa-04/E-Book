@@ -20,7 +20,7 @@ export class ManageCatalog implements OnInit {
   public themeService = inject(ThemeService);
   public languageService = inject(LanguageService);
 
-  private apiUrl = 'http://localhost:5091/api/books';
+  private apiUrl = '/api/books';
 
   // Reactive Data State Tracking
   public books = signal<any[]>([]);

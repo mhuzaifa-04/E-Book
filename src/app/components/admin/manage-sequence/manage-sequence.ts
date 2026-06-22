@@ -36,7 +36,7 @@ export class ManageSequence implements OnInit {
   }
 
   loadBooksInSequence(): void {
-    this.http.get<Book[]>('http://localhost:5091/api/books').subscribe({
+    this.http.get<Book[]>('/api/books').subscribe({
       next: (data) => {
         const sorted = data.sort((a, b) => (a.sequenceOrder ?? 0) - (b.sequenceOrder ?? 0));
         this.booksList.set(sorted);
@@ -76,7 +76,7 @@ export class ManageSequence implements OnInit {
       sequenceOrder: index + 1
     }));
 
-    this.http.put('http://localhost:5091/api/books/update-sequence', updatedSequence).subscribe({
+    this.http.put('/api/books/update-sequence', updatedSequence).subscribe({
       next: () => {
         this.successMessage.set('Library sequence optimized successfully!');
         this.isSaving.set(false);

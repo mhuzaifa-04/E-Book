@@ -11,7 +11,7 @@ export class BookService {
   private http = inject(HttpClient);
 
   // 2. Define the exact address string matching your running .NET API server port
-  private apiUrl = 'http://localhost:5091/api/books';
+  private apiUrl = '/api/books';
 
   constructor() {}
 

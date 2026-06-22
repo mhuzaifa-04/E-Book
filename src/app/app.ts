@@ -30,7 +30,7 @@ this.refreshCategoriesSidebarContent();  }
 
  refreshCategoriesSidebarContent(): void {
     // 🟢 Connects to your successfully compiled C# .NET Backend controller!
-    this.http.get<any[]>('http://localhost:5091/api/categories').subscribe({
+    this.http.get<any[]>('/api/categories').subscribe({
       next: (data) => {
         if (data && Array.isArray(data)) {
           this.categories.set(data);
